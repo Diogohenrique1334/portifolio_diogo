@@ -1,0 +1,105 @@
+{
+  "experiencias": [
+    {
+      "periodo": "2022 – Presente",
+      "cargo": "Cientista de Dados",
+      "empresa": "Claro SA",
+      "local": "São Paulo, SP",
+      "bullets": [
+        "Análise e modelagem de dados de Customer Experience (CX) e PME no setor de telecomunicações",
+        "Desenvolvimento de dashboards interativos para monitoramento de KPIs de qualidade de atendimento",
+        "Construção de pipelines de dados com pandas e SQL sobre bases de produção",
+        "Automação de relatórios e extração de insights para equipes comerciais e de operações"
+      ]
+    },
+    {
+      "periodo": "Anterior",
+      "cargo": "Analista de Dados",
+      "empresa": "Comgás · JBS",
+      "local": "São Paulo, SP",
+      "bullets": [
+        "Análise de dados operacionais e elaboração de relatórios gerenciais",
+        "Modelagem estatística e construção de indicadores de desempenho"
+      ]
+    }
+  ],
+  "formacao": [
+    {
+      "grau": "Bacharelado em Ciência de Dados",
+      "instituicao": "Universidade Anhembi Morumbi",
+      "local": "São Paulo, SP",
+      "status": "Concluído"
+    },
+    {
+      "grau": "Pós-graduação em Engenharia de Machine Learning",
+      "instituicao": "Data Science Academy",
+      "local": "Online",
+      "status": "Em andamento"
+    }
+  ],
+  "certificacoes": [
+    {
+      "nome": "AWS Academy Data Engineerin",
+      "instituicao": "AWS Academy",
+      "ano": "2024",
+      "descricao": "",
+      "url": "https://www.credly.com/badges/65642bba-84b2-45c6-b117-a83cd2151c2e/linked_in_profile"
+    },
+    {
+      "nome": "Matemática Para Data Science",
+      "instituicao": "Data Science Academy",
+      "ano": "2025",
+      "descricao": "",
+      "url": "https://www.datascienceacademy.com.br/certificate_v2/62fc23bbe32fc349bd35b202/user/5d705c205e4cde892d8b4573"
+    },
+    {
+      "nome": "Fundamentos de Linguagem Python para Análise de Dados e Data Science - Nível Básico",
+      "instituicao": "Data Science Academy",
+      "ano": "2024",
+      "descricao": "",
+      "url": "https://mycourse.app/cEsxNnhKRqsGW1Ue9"
+    },
+    {
+      "nome": "Fundamentos de Linguagem Python para Análise de Dados e Data Science - Nível Introdutório",
+      "instituicao": "Data Science Academy",
+      "ano": "2023",
+      "descricao": "",
+      "url": "https://mycourse.app/Fhzf7x8XQD5G5BMZ8"
+    },
+    {
+      "nome": "Fundamentos de Linguagem Python para Análise de Dados e Data Science - Nível Intermediário",
+      "instituicao": "Data Science Academy",
+      "ano": "2024",
+      "descricao": "",
+      "url": "https://mycourse.app/gKaq4fcYNbDviA6J6"
+    },
+    {
+      "nome": "AWS Academy Cloud Foundations",
+      "instituicao": "Amazon Web Services (AWS)",
+      "ano": "2024",
+      "descricao": "",
+      "url": "https://www.credly.com/badges/75b71fdb-fb3d-4de2-9cc6-b9f8e006e2ed/linked_in_profile"
+    },
+    {
+      "nome": "R Fundamentos Para Análise de Dados",
+      "instituicao": "Data Science Academy",
+      "ano": "2025",
+      "descricao": "",
+      "url": "https://mycourse.app/KagXM1Z8QEVWXiTDP"
+    },
+    {
+      "nome": "Análise Estatística Para Data Science com Linguagem Python",
+      "instituicao": "Data Science Academy",
+      "ano": "2026",
+      "descricao": "",
+      "url": "https://mycourse.app/UWv8Dmkl3TEVBx2xK"
+    },
+    {
+      "nome": "Engenharia de Software Para Machine Learning",
+      "instituicao": "Data Science Academy",
+      "ano": "2026",
+      "descricao": "",
+      "url": "https://mycourse.app/gPYBjToc7KcmGaOOG"
+    }
+  ]
+}

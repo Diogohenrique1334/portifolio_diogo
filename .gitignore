@@ -1,0 +1,29 @@
+# Environment
+.env
+.env.local
+.env*.local
+
+# Cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Streamlit
+.streamlit/
+.streamlit/secrets.toml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Data backups
+data/*_bkp_*.json
+
+# Editor temp files
+*.tmp.*
+
+# Assets descartados
+assets/foto__.png

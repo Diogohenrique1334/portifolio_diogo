@@ -1,0 +1,139 @@
+[
+  {
+    "titulo": "TechVet - Detecção de Neutrófilos com IA",
+    "categoria": "Computer Vision",
+    "descricao": "Modelo YOLOv8 Nano fine-tuned para detecção automática de neutrófilos em imagens microscópicas veterinárias, servido via FastAPI REST com interface Streamlit para upload, visualização das detecções e download dos resultados.",
+    "descricao_longa": "Veterinários e biólogos precisam contar células específicas (neutrófilos) em imagens de microscópio, um processo manual, lento e suscetível a erros humanos. Este projeto desenvolveu um sistema de inteligência artificial capaz de identificar e destacar automaticamente essas células em fotos, com mais de 96% de acurácia.\n\nO médico ou técnico simplesmente sobe uma imagem, o sistema analisa em segundos e retorna a imagem com cada célula marcada e uma tabela com os resultados. O que antes levava minutos de análise visual pode ser feito em instantes.",
+    "impacto": "Automatiza uma análise que antes era feita manualmente, reduzindo o tempo de diagnóstico de minutos para segundos com 96% de precisão.",
+    "stack": [
+      "Python",
+      "YOLOv8",
+      "FastAPI",
+      "Streamlit",
+      "PyTorch",
+      "OpenCV",
+      "Pillow"
+    ],
+    "metricas": {
+      "mAP@50": "0.962",
+      "F1 Score": "0.901",
+      "Épocas de treino": "100",
+      "Dataset": "142 imagens"
+    },
+    "imagem": "techvet_-_detecção_de_neutrófi.PNG",
+    "github": "https://github.com/Diogohenrique1334/TecVet",
+    "demo": null,
+    "destaque": true
+  },
+  {
+    "titulo": "Finanças Pessoais - Extração de Faturas com LLM",
+    "categoria": "Computer Vision",
+    "descricao": "Pipeline de ingestão de faturas de cartão de crédito em PDF (Bradesco/Santander) usando GPT-4 para extração e parsing inteligente de transações, com dashboard interativo em ECharts para análise de gastos por categoria, cidade e período.",
+    "descricao_longa": "Quem já tentou organizar os gastos do cartão de crédito sabe como é trabalhoso: baixar o PDF da fatura, abrir planilha, copiar cada linha manualmente... Este sistema faz tudo isso automaticamente.\n\nEle lê o PDF da fatura, usa inteligência artificial (GPT-4 da OpenAI) para entender e categorizar cada transação — mesmo as que aparecem com nomes estranhos ou abreviações — e salva tudo em um banco de dados. O dashboard mostra visualmente onde o dinheiro foi gasto, com gráficos por categoria, cidade, período e comparações mensais.",
+    "impacto": "Elimina o trabalho manual de categorização de gastos, transformando faturas PDF em análises visuais interativas automaticamente.",
+    "stack": [
+      "Python",
+      "FastAPI",
+      "Streamlit",
+      "OpenAI GPT-4",
+      "PostgreSQL",
+      "SQLAlchemy",
+      "Alembic",
+      "PyPDF2",
+      "ECharts"
+    ],
+    "metricas": {
+      "Bancos suportados": "Bradesco + Santander",
+      "Banco de dados": "PostgreSQL (Neon Cloud)",
+      "Gráficos": "10+ tipos interativos",
+      "Matching de cidades": "rapidfuzz (fuzzy)"
+    },
+    "imagem": "finanças_pessoais__extração_de.PNG",
+    "github": "https://github.com/Diogohenrique1334",
+    "demo": null,
+    "destaque": true
+  },
+  {
+    "titulo": "Minha Vida - Rastreador de Hábitos via WhatsApp",
+    "categoria": "Computer Vision",
+    "descricao": "Sistema de rastreamento diário de hábitos integrado ao WhatsApp Cloud API. Webhook FastAPI recebe e interpreta mensagens, persiste no PostgreSQL e disponibiliza dashboard Streamlit com análises de humor, sono, treinos e produtividade com 7+ tipos de gráficos.",
+    "descricao_longa": "Acompanhar hábitos diários é difícil porque exige abrir aplicativos, preencher formulários e manter disciplina. Este sistema torna isso simples: basta enviar uma mensagem no WhatsApp — exatamente como você faz com amigos — e o sistema registra automaticamente.\n\nNo final do dia, a pergunta 'Como foi seu humor hoje? De 1 a 10' chega pelo WhatsApp. Você responde com um número e pronto. O dashboard mostra tendências de humor, qualidade do sono, frequência de exercícios e produtividade ao longo do tempo, com gráficos que revelam padrões que seriam impossíveis de perceber no dia a dia.",
+    "impacto": "Converte conversas naturais no WhatsApp em dados estruturados e visualizações que revelam padrões de bem-estar ao longo do tempo.",
+    "stack": [
+      "Python",
+      "FastAPI",
+      "Streamlit",
+      "WhatsApp Cloud API",
+      "PostgreSQL",
+      "SQLAlchemy",
+      "Alembic",
+      "ECharts",
+      "Plotly"
+    ],
+    "metricas": {
+      "Categorias": "Saúde, Evolução pessoal, Lazer",
+      "Gráficos": "7+ tipos interativos",
+      "Deploy": "Render + Streamlit Cloud",
+      "Integração": "WhatsApp Cloud API (Meta)"
+    },
+    "imagem": "minha_vida_-_rastreador_de_háb.PNG",
+    "github": "https://github.com/Diogohenrique1334",
+    "demo": null,
+    "destaque": true
+  },
+  {
+    "titulo": "Diagnóstico - Gestão de Projetos de Dados",
+    "categoria": "Computer Vision",
+    "descricao": "Sistema full-stack de gestão de portfólio de projetos de Ciência de Dados com entrevistas estruturadas de diagnóstico, pipeline de status com automação de emails via Outlook e dashboards ECharts interativos com 12+ tipos de gráficos, histórico de mudanças e rastreamento de habilidades técnicas.",
+    "descricao_longa": "Gerenciar dezenas de projetos de análise de dados para diferentes clientes — cada um em uma etapa diferente, com equipes e objetivos distintos — é um desafio real. Este sistema resolve isso com uma plataforma personalizada desenvolvida do zero.\n\nO processo começa com uma entrevista estruturada: o sistema guia o levantamento de requisitos com perguntas estratégicas (qual é o objetivo? como o sucesso será medido? o que atrapalha hoje?). A partir daí, cada projeto é acompanhado em até 9 etapas — e a cada mudança de status, os stakeholders recebem emails automáticos com o contexto da atualização.\n\nO dashboard mostra em tempo real quais projetos estão em andamento, quais habilidades técnicas foram mais utilizadas, e como a produtividade evoluiu ao longo do tempo — tudo em gráficos interativos.",
+    "impacto": "Centraliza o gerenciamento de todo um portfólio de projetos de dados, eliminando emails manuais e planilhas dispersas com um sistema profissional de acompanhamento.",
+    "stack": [
+      "Python",
+      "Streamlit",
+      "SQLAlchemy",
+      "SQLite",
+      "Alembic",
+      "ECharts",
+      "Plotly",
+      "win32com (Outlook)",
+      "pytz"
+    ],
+    "metricas": {
+      "Etapas de projeto": "9 status rastreados",
+      "Tipos de projeto": "9 categorias",
+      "Habilidades catalogadas": "70+",
+      "Gráficos": "12+ tipos interativos",
+      "Automação": "Emails via Outlook"
+    },
+    "imagem": "diagnóstico_-_gestão_de_projet.PNG",
+    "github": null,
+    "demo": null,
+    "destaque": true
+  },
+  {
+    "titulo": "BDC - Gestão de jogos time de futebol da várzea ",
+    "categoria": "Computer Vision",
+    "descricao": "Projeto desenvolvido para coleta de dados e análise estatística do time de futebol que jogo na minha cidade, neste projeto eu uso dados para analisar o desempenho do time na temporada, faço análise estatística para tomar decisões melhores junto com a diretoria do time.",
+    "descricao_longa": "",
+    "impacto": "",
+    "stack": [],
+    "metricas": {},
+    "imagem": "bdc_-_gestão_de_jogos_time_de_.PNG",
+    "github": null,
+    "demo": null,
+    "destaque": true
+  },
+  {
+    "titulo": "Busca pão - analise temporal da oscilação do preço de alimentos básicos.",
+    "categoria": "Computer Vision",
+    "descricao": "Este projeto analisa o comportamento diário dos preços de produtos básicos para recomendar as melhores oportunidades de compra. Utilizamos web scraping para coletar dados de mercados da internet, que alimentam um banco de dados e, posteriormente, um dashboard. Convido você a explorar o dashboard.",
+    "descricao_longa": "",
+    "impacto": "",
+    "stack": [],
+    "metricas": {},
+    "imagem": "busca_pão_-_analise_temporal_d.PNG",
+    "github": null,
+    "demo": null,
+    "destaque": true
+  }
+]
