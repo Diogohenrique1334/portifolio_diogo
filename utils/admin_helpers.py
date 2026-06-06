@@ -77,6 +77,32 @@ def salvar_perfil(perfil: dict):
     )
 
 
+def carregar_artigos() -> list[dict]:
+    """Carrega lista de artigos/publicações do JSON."""
+    try:
+        path = _get_data_file("artigos.json")
+        if not path.exists():
+            return []
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception as e:
+        raise ValueError(f"Erro ao carregar artigos: {e}")
+
+
+def salvar_artigos(artigos: list[dict]):
+    """Salva lista de artigos no JSON com backup automático."""
+    path = _get_data_file("artigos.json")
+    _fazer_backup(path)
+    path.write_text(
+        json.dumps(artigos, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+
+def validar_artigo(a: dict) -> bool:
+    """Valida estrutura mínima de um artigo."""
+    return bool(a.get("titulo") and a.get("url"))
+
+
 def validar_projeto(p: dict) -> bool:
     """Valida estrutura mínima de um projeto."""
     campos_obrigatorios = ["titulo", "categoria", "descricao", "stack", "destaque"]

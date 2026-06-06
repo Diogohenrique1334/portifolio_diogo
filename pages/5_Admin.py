@@ -13,9 +13,22 @@ from utils.admin_helpers import (
     salvar_projetos,
     carregar_experiencias,
     salvar_experiencias,
+    carregar_artigos,
+    salvar_artigos,
     validar_projeto,
     validar_experiencia,
+    validar_artigo,
 )
+
+# Categorias disponíveis para os projetos (reutilizadas nos selects)
+CATEGORIAS_PROJETO = [
+    "Computer Vision",
+    "Análise de Dados",
+    "Machine Learning",
+    "NLP",
+    "Engenharia de Dados",
+    "Produto de Dados",
+]
 
 st.set_page_config(
     page_title="Admin — Portfólio",
@@ -76,8 +89,8 @@ with col_logout:
 st.divider()
 
 # Abas
-tab_projetos, tab_experiencia, tab_perfil = st.tabs(
-    ["📦 Projetos", "💼 Experiência", "👤 Perfil"]
+tab_projetos, tab_experiencia, tab_artigos, tab_perfil = st.tabs(
+    ["📦 Projetos", "💼 Experiência", "✍️ Artigos", "👤 Perfil"]
 )
 
 # ================================================================
@@ -102,17 +115,13 @@ with tab_projetos:
                 novo_titulo = st.text_input(
                     "Título", p.get("titulo", ""), key=f"p_titulo_{i}"
                 )
+                cat_atual = p.get("categoria", CATEGORIAS_PROJETO[0])
                 nova_categoria = st.selectbox(
                     "Categoria",
-                    [
-                        "Computer Vision",
-                        "Análise de Dados",
-                        "Machine Learning",
-                        "NLP",
-                        "Engenharia de Dados",
-                        "Produto de Dados",
-                    ],
-                    index=0,
+                    CATEGORIAS_PROJETO,
+                    index=CATEGORIAS_PROJETO.index(cat_atual)
+                    if cat_atual in CATEGORIAS_PROJETO
+                    else 0,
                     key=f"p_cat_{i}",
                 )
                 nova_descricao = st.text_area(
@@ -135,6 +144,12 @@ with tab_projetos:
                 )
                 novo_github = st.text_input(
                     "GitHub URL", p.get("github", ""), key=f"p_gh_{i}"
+                )
+                novo_demo = st.text_input(
+                    "Link da demo / projeto ao vivo",
+                    p.get("demo", "") or "",
+                    key=f"p_demo_{i}",
+                    help="URL do app publicado (Streamlit Cloud, Render, etc.) ou vídeo da demo",
                 )
                 novo_destaque = st.checkbox(
                     "Destacar?", p.get("destaque", True), key=f"p_dest_{i}"
@@ -170,6 +185,7 @@ with tab_projetos:
                             "impacto": novo_impacto,
                             "stack": [s.strip() for s in nova_stack.split(",") if s.strip()],
                             "github": novo_github or None,
+                            "demo": novo_demo or None,
                             "destaque": novo_destaque,
                             "imagem": nome_foto,
                         }
@@ -189,22 +205,16 @@ with tab_projetos:
     st.markdown("### ➕ Novo Projeto")
     with st.form("novo_projeto"):
         novo_titulo = st.text_input("Título")
-        nova_categoria = st.selectbox(
-            "Categoria",
-            [
-                "Computer Vision",
-                "Análise de Dados",
-                "Machine Learning",
-                "NLP",
-                "Engenharia de Dados",
-                "Produto de Dados",
-            ],
-        )
+        nova_categoria = st.selectbox("Categoria", CATEGORIAS_PROJETO)
         nova_descricao = st.text_area("Descrição (técnica)")
         nova_descricao_longa = st.text_area("Descrição longa (opcional)")
         novo_impacto = st.text_area("Impacto (opcional)")
         nova_stack_str = st.text_input("Stack (separado por vírgula)")
         novo_github = st.text_input("GitHub URL (opcional)")
+        novo_demo = st.text_input(
+            "Link da demo / projeto ao vivo (opcional)",
+            help="URL do app publicado (Streamlit Cloud, Render, etc.) ou vídeo da demo",
+        )
         novo_destaque = st.checkbox("Destacar?", True)
         arquivo_foto = st.file_uploader(
             "Foto do projeto (PNG/JPG - opcional)",
@@ -231,7 +241,7 @@ with tab_projetos:
                 "metricas": {},
                 "imagem": nome_foto,
                 "github": novo_github or None,
-                "demo": None,
+                "demo": novo_demo or None,
                 "destaque": novo_destaque,
             }
             if validar_projeto(novo_proj):
@@ -317,6 +327,102 @@ with tab_experiencia:
                 st.rerun()
             else:
                 st.error("❌ Preencha todos os campos obrigatórios")
+
+# ================================================================
+# ABA: ARTIGOS
+# ================================================================
+with tab_artigos:
+    st.markdown("### Gerenciar Artigos & Publicações")
+    artigos = carregar_artigos()
+
+    st.write(f"**Artigos: {len(artigos)}**")
+    for i, art in enumerate(artigos):
+        with st.expander(f"✍️ {art.get('titulo', 'Sem título')}", expanded=False):
+            novo_titulo = st.text_input(
+                "Título", art.get("titulo", ""), key=f"art_titulo_{i}"
+            )
+            novo_resumo = st.text_area(
+                "Resumo", art.get("resumo", ""), key=f"art_resumo_{i}"
+            )
+            col_plat, col_data = st.columns(2)
+            with col_plat:
+                nova_plataforma = st.text_input(
+                    "Plataforma (ex: LinkedIn, Medium)",
+                    art.get("plataforma", ""),
+                    key=f"art_plat_{i}",
+                )
+            with col_data:
+                nova_data = st.text_input(
+                    "Data (ex: Dez 2024)", art.get("data", ""), key=f"art_data_{i}"
+                )
+            nova_url = st.text_input("URL do artigo", art.get("url", ""), key=f"art_url_{i}")
+            novas_tags = st.text_input(
+                "Tags (separadas por vírgula)",
+                ", ".join(art.get("tags", [])),
+                key=f"art_tags_{i}",
+            )
+            novo_proj = st.text_input(
+                "Projeto relacionado (opcional)",
+                art.get("projeto_relacionado", "") or "",
+                key=f"art_proj_{i}",
+            )
+
+            col_save, col_del = st.columns(2)
+            with col_save:
+                if st.button("💾 Salvar", key=f"save_art_{i}"):
+                    artigos[i].update(
+                        {
+                            "titulo": novo_titulo,
+                            "resumo": novo_resumo,
+                            "plataforma": nova_plataforma,
+                            "data": nova_data,
+                            "url": nova_url,
+                            "tags": [t.strip() for t in novas_tags.split(",") if t.strip()],
+                            "projeto_relacionado": novo_proj or None,
+                        }
+                    )
+                    salvar_artigos(artigos)
+                    st.success("✅ Artigo atualizado!")
+                    st.rerun()
+
+            with col_del:
+                if st.button("🗑️ Deletar", key=f"del_art_{i}"):
+                    artigos.pop(i)
+                    salvar_artigos(artigos)
+                    st.success("✅ Artigo removido!")
+                    st.rerun()
+
+    # Adicionar artigo
+    st.markdown("### ➕ Novo Artigo")
+    with st.form("novo_artigo"):
+        novo_titulo = st.text_input("Título")
+        novo_resumo = st.text_area("Resumo")
+        col_plat, col_data = st.columns(2)
+        with col_plat:
+            nova_plataforma = st.text_input("Plataforma (ex: LinkedIn, Medium)")
+        with col_data:
+            nova_data = st.text_input("Data (ex: Dez 2024)")
+        nova_url = st.text_input("URL do artigo")
+        novas_tags = st.text_input("Tags (separadas por vírgula)")
+        novo_proj = st.text_input("Projeto relacionado (opcional)")
+
+        if st.form_submit_button("➕ Adicionar Artigo"):
+            novo_artigo = {
+                "titulo": novo_titulo,
+                "resumo": novo_resumo,
+                "plataforma": nova_plataforma,
+                "data": nova_data,
+                "url": nova_url,
+                "tags": [t.strip() for t in novas_tags.split(",") if t.strip()],
+                "projeto_relacionado": novo_proj or None,
+            }
+            if validar_artigo(novo_artigo):
+                artigos.append(novo_artigo)
+                salvar_artigos(artigos)
+                st.success("✅ Artigo criado!")
+                st.rerun()
+            else:
+                st.error("❌ Preencha pelo menos título e URL")
 
 # ================================================================
 # ABA: PERFIL

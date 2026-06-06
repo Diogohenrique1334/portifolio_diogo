@@ -88,7 +88,11 @@ st.markdown('<p class="sec-heading">Formação</p>', unsafe_allow_html=True)
 formacoes = dados.get("formacao", [])
 if formacoes:
     cards = [
-        edu_card(f["grau"], f["instituicao"], f"{f['local']} · {f['status']}")
+        edu_card(
+            f["grau"],
+            f["instituicao"],
+            " · ".join(p for p in [f.get("periodo"), f.get("status")] if p),
+        )
         for f in formacoes
     ]
     st.markdown(edu_grid(cards), unsafe_allow_html=True)

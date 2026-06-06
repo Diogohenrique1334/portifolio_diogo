@@ -1,0 +1,11 @@
+[
+  {
+    "titulo": "Explorando a melhor versão de mim mesmo",
+    "resumo": "Como usei análise estatística e um app em Streamlit para acompanhar meus hábitos diários — leitura, exercício, humor — ao longo de 2024, e os insights que tirei para planejar 2025.",
+    "plataforma": "LinkedIn",
+    "data": "Dez 2024",
+    "url": "https://www.linkedin.com/posts/diogooliveira1334_quem-aqui-quer-encontrar-a-melhor-vers%C3%A3o-activity-7275522941092532224-hSD0",
+    "tags": ["Análise de Dados", "Streamlit", "Hábitos", "Storytelling"],
+    "projeto_relacionado": "Minha Vida - Rastreador de Hábitos via WhatsApp"
+  }
+]

@@ -108,12 +108,17 @@ def _render_card(p: dict):
         )
         mailto = f"mailto:diogohenrique1334@gmail.com?subject={subject}&body={body}"
 
+        # Monta os botões dinamicamente conforme os links disponíveis
+        acoes = []
+        if p.get("demo"):
+            acoes.append(("🚀 Ver projeto", p["demo"]))
         if p.get("github"):
-            col_gh, col_contact = st.columns(2)
-            col_gh.link_button("🐙 GitHub", p["github"], use_container_width=True)
-            col_contact.link_button("✉ Fale comigo", mailto, use_container_width=True)
-        else:
-            st.link_button("✉ Fale comigo sobre este projeto", mailto, use_container_width=True)
+            acoes.append(("🐙 GitHub", p["github"]))
+        acoes.append(("✉ Fale comigo", mailto))
+
+        cols_acoes = st.columns(len(acoes))
+        for col, (label, url) in zip(cols_acoes, acoes):
+            col.link_button(label, url, use_container_width=True)
 
         # ---- Saber mais (para leitores não técnicos) ----
         if p.get("descricao_longa"):
