@@ -59,6 +59,7 @@ TECH_ICONS = {
     "spaCy": "🌍",
     "Transformers": "🤗",
     "GPT": "🧠",
+    "OpenAI GPT-4": "🧠",
     "BERT": "📖",
     "LangChain": "⛓️",
     "RAG": "🔗",

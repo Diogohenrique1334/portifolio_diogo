@@ -22,7 +22,7 @@
     },
     "imagem": "techvet_-_detecção_de_neutrófi.PNG",
     "github": "https://github.com/Diogohenrique1334/TecVet",
-    "demo": null,
+    "demo": "https://tecvet-8sskfcrctvvz6zpeh4s4wx.streamlit.app/",
     "destaque": true
   },
   {
@@ -50,7 +50,7 @@
     },
     "imagem": "finanças_pessoais__extração_de.PNG",
     "github": "https://github.com/Diogohenrique1334/Financas",
-    "demo": null,
+    "demo": "https://financas-de-diogooliveira.streamlit.app/",
     "destaque": true
   },
   {
@@ -81,7 +81,7 @@
     },
     "imagem": "minha_vida_-_rastreador_de_háb.PNG",
     "github": "https://github.com/Diogohenrique1334/MINHA-VIDA",
-    "demo": null,
+    "demo": "https://minha-vida-xp28detwfjpeu8bf5t2hkt.streamlit.app/",
     "destaque": true
   },
   {
@@ -163,7 +163,7 @@
     "imagem": null,
     "github": null,
     "demo": null,
-    "destaque": true
+    "destaque": false
   },
   {
     "titulo": "Biblioteca de Inteligência Operacional",
@@ -186,7 +186,7 @@
     "imagem": null,
     "github": null,
     "demo": null,
-    "destaque": true
+    "destaque": false
   },
   {
     "titulo": "BDC - Análise de Desempenho de Time de Futebol (Power BI)",

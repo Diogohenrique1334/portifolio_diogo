@@ -121,12 +121,12 @@ st.divider()
 st.markdown('<p class="sec-heading">Habilidades técnicas</p>', unsafe_allow_html=True)
 
 skills = [
-    "Python", "R", "SQL", "DAX", "M",
-    "scikit-learn", "statsmodels", "YOLOv8", "PyTorch", "Keras", "TensorFlow",
+    "Python", "R", "SQL", "DAX",
+    "scikit-learn", "statsmodels", "YOLOv8", "PyTorch", "OpenCV",
     "pandas", "numpy", "scipy",
-    "Streamlit", "ECharts", "Plotly", "Power BI", "Tableau",
+    "Streamlit", "ECharts", "Plotly", "Power BI",
     "FastAPI", "Docker", "PostgreSQL", "SQLite", "SQLAlchemy", "Alembic",
-    "Git", "GitHub Actions", "Render", "Spark",
+    "Git", "Render", "AWS", "OpenAI GPT-4",
     "Machine Learning", "Deep Learning", "Computer Vision",
 ]
 
