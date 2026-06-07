@@ -43,6 +43,7 @@
       "ECharts"
     ],
     "metricas": {
+      "Qualidade da extração": "98% de cobertura · 99,5% de reconciliação (fatura de teste)",
       "Bancos suportados": "Bradesco + Santander",
       "Banco de dados": "PostgreSQL (Neon Cloud)",
       "Gráficos": "10+ tipos interativos",
