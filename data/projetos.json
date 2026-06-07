@@ -189,26 +189,51 @@
     "destaque": true
   },
   {
-    "titulo": "BDC - Gestão de jogos time de futebol da várzea ",
+    "titulo": "BDC - Análise de Desempenho de Time de Futebol (Power BI)",
     "categoria": "Análise de Dados",
-    "descricao": "Projeto desenvolvido para coleta de dados e análise estatística do time de futebol que jogo na minha cidade, neste projeto eu uso dados para analisar o desempenho do time na temporada, faço análise estatística para tomar decisões melhores junto com a diretoria do time.",
-    "descricao_longa": "",
-    "impacto": "",
-    "stack": [],
-    "metricas": {},
+    "descricao": "Painel em Power BI para análise de desempenho do time de futebol de campo do meu bairro, onde jogo desde 2019. Os diretores registram, a cada partida, o resultado e as notas dos jogadores em um formulário; os dados alimentam uma planilha online que serve de fonte para o dashboard, com análises de aproveitamento mensal, dispersão de notas por posição e desempenho dentro/fora de casa. Projeto reconhecido pela faculdade como um dos melhores do semestre e apresentado a empresas parceiras.",
+    "descricao_longa": "Sempre quis saber como os dados poderiam ajudar a melhorar o desempenho de um hobby que amo: jogo futebol de campo no meu bairro desde 2019. Junto com um amigo, passei a coletar as avaliações dos jogadores e os resultados de cada jogo e transformei isso em um painel de Power BI para a comissão técnica.\n\nOs diretores do time preenchem um formulário a cada partida com o resultado e as notas dos jogadores; esses dados caem automaticamente em uma planilha online que serve de fonte para o dashboard. A partir daí, o painel revela o que a olho nu não dá para ver: a dispersão das notas por posição (o ataque é a posição com maior variação), uma linha do tempo do aproveitamento mês a mês, o desempenho dentro e fora de casa e a nota média por tipo de jogo (amistoso, festival e campeonato).\n\nPara descontrair, conectei o painel a uma API com a tabela do Brasileirão e incluí os nossos jogos como se estivéssemos disputando o campeonato nacional — terminamos brigando lá na parte de cima da tabela. Com esses insights, a comissão técnica passou a tomar decisões mais assertivas e o time teve a sua melhor temporada. O projeto foi reconhecido pela faculdade como um dos melhores do semestre e selecionado para apresentação a um grupo de empresas parceiras.",
+    "impacto": "Deu à comissão técnica insights acionáveis (dispersão de notas por posição, aproveitamento mensal, desempenho casa/fora) que apoiaram decisões mais assertivas e a melhor temporada do time. Reconhecido pela faculdade como um dos melhores projetos do semestre e apresentado a empresas parceiras.",
+    "stack": [
+      "Power BI",
+      "DAX",
+      "Google Forms",
+      "Google Sheets",
+      "API REST",
+      "Estatística descritiva"
+    ],
+    "metricas": {
+      "Reconhecimento": "Um dos melhores projetos do semestre (faculdade)",
+      "Coleta": "Formulário → planilha online (a cada jogo)",
+      "Análises": "Dispersão por posição, aproveitamento mensal, casa/fora",
+      "Integração": "API da tabela do Brasileirão",
+      "Resultado do time": "Melhor temporada da história"
+    },
     "imagem": "bdc_-_gestão_de_jogos_time_de_.PNG",
     "github": null,
     "demo": null,
     "destaque": true
   },
   {
-    "titulo": "Busca pão - analise temporal da oscilação do preço de alimentos básicos.",
-    "categoria": "Análise de Dados",
-    "descricao": "Este projeto analisa o comportamento diário dos preços de produtos básicos para recomendar as melhores oportunidades de compra. Utilizamos web scraping para coletar dados de mercados da internet, que alimentam um banco de dados e, posteriormente, um dashboard. Convido você a explorar o dashboard.",
-    "descricao_longa": "",
-    "impacto": "",
-    "stack": [],
-    "metricas": {},
+    "titulo": "Busca Pão - Pipeline de Web Scraping e Análise de Preços de Alimentos",
+    "categoria": "Engenharia de Dados",
+    "descricao": "Pipeline de dados (ETL) que coleta diariamente os preços de produtos básicos de mercados online via web scraping, armazena na nuvem (AWS) e consolida em um dashboard Power BI. O painel recomenda a melhor oportunidade de compra do dia com base no percentual de queda do preço, no histórico de promoções e na frequência com que o produto entrou em oferta.",
+    "descricao_longa": "Na disciplina de Engenharia de Dados da faculdade, eu e meu grupo tivemos a missão de montar uma pipeline de dados de ponta a ponta: coleta, processo de ETL e consolidação do conhecimento extraído desses dados.\n\nDesenvolvemos um web scraping que coleta os preços de produtos básicos em alguns mercados online, envia os dados para a AWS (armazenamento em nuvem) e, a partir daí, os leva para o Power BI. No Power BI construímos várias análises com foco em uso real — a principal delas indica a melhor oportunidade de compra do dia, cruzando o percentual de queda do preço atual, o percentual médio de queda nas promoções anteriores do mesmo produto e a quantidade de vezes que ele já esteve em oferta.\n\nCom esses critérios é possível dizer, a cada dia, onde realmente vale a pena comprar. Com mais volume de dados, dá para extrair ainda mais insights sobre o comportamento dos mercados avaliados. O projeto recebeu a nota máxima.",
+    "impacto": "Transforma preços coletados diariamente em uma recomendação objetiva de melhor oportunidade de compra do dia, combinando queda atual, histórico de promoções e frequência de ofertas. Avaliado com nota máxima na disciplina de Engenharia de Dados.",
+    "stack": [
+      "Python",
+      "Web Scraping",
+      "AWS",
+      "ETL",
+      "Power BI"
+    ],
+    "metricas": {
+      "Arquitetura": "Web scraping → AWS (nuvem) → Power BI",
+      "Contexto": "Engenharia de Dados (projeto em grupo)",
+      "Indicador-chave": "Melhor oportunidade de compra do dia",
+      "Critérios": "% de queda, histórico de promoções, frequência de ofertas",
+      "Resultado": "Nota máxima"
+    },
     "imagem": "busca_pão_-_analise_temporal_d.PNG",
     "github": null,
     "demo": null,
