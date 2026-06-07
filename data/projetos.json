@@ -29,7 +29,7 @@
     "titulo": "Finanças Pessoais - Extração de Faturas com LLM",
     "categoria": "NLP",
     "descricao": "Pipeline de ingestão de faturas de cartão de crédito em PDF (Bradesco/Santander) usando GPT-4 para extração e parsing inteligente de transações, com dashboard interativo em ECharts para análise de gastos por categoria, cidade e período.",
-    "descricao_longa": "Quem já tentou organizar os gastos do cartão de crédito sabe como é trabalhoso: baixar o PDF da fatura, abrir planilha, copiar cada linha manualmente... Este sistema faz tudo isso automaticamente.\n\nEle lê o PDF da fatura, usa inteligência artificial (GPT-4 da OpenAI) para entender e categorizar cada transação — mesmo as que aparecem com nomes estranhos ou abreviações — e salva tudo em um banco de dados. O dashboard mostra visualmente onde o dinheiro foi gasto, com gráficos por categoria, cidade, período e comparações mensais.",
+    "descricao_longa": "Quem já tentou organizar os gastos do cartão de crédito sabe como é trabalhoso, baixar o PDF da fatura, abrir planilha, copiar cada linha manualmente... Este sistema faz tudo isso automaticamente, categoriza os meus gastos e alimenta um painel interativos.\n\nEle lê o PDF da fatura, usa inteligência artificial (GPT-4 da OpenAI) para entender e categorizar cada transação, mesmo as que aparecem com nomes estranhos ou abreviações, e salva tudo em um banco de dados. O dashboard mostra visualmente onde o dinheiro foi gasto, com gráficos por categoria, cidade, período e comparações mensais.",
     "impacto": "Elimina o trabalho manual de categorização de gastos, transformando faturas PDF em análises visuais interativas automaticamente.",
     "stack": [
       "Python",
@@ -56,9 +56,9 @@
   {
     "titulo": "Minha Vida - Rastreador de Hábitos via WhatsApp",
     "categoria": "Engenharia de Dados",
-    "descricao": "Sistema de rastreamento diário de hábitos integrado ao WhatsApp Cloud API. Webhook FastAPI recebe e interpreta mensagens, persiste no PostgreSQL e disponibiliza dashboard Streamlit com análises de humor, sono, treinos e produtividade com 7+ tipos de gráficos.",
-    "descricao_longa": "Acompanhar hábitos diários é difícil porque exige abrir aplicativos, preencher formulários e manter disciplina. Este sistema torna isso simples: basta enviar uma mensagem no WhatsApp — exatamente como você faz com amigos — e o sistema registra automaticamente.\n\nNo final do dia, a pergunta 'Como foi seu humor hoje? De 1 a 10' chega pelo WhatsApp. Você responde com um número e pronto. O dashboard mostra tendências de humor, qualidade do sono, frequência de exercícios e produtividade ao longo do tempo, com gráficos que revelam padrões que seriam impossíveis de perceber no dia a dia.",
-    "impacto": "Converte conversas naturais no WhatsApp em dados estruturados e visualizações que revelam padrões de bem-estar ao longo do tempo.",
+    "descricao": "Sistema de rastreamento diário de hábitos integrado ao WhatsApp Cloud API. Webhook FastAPI recebe e interpreta mensagens interativas, persiste no PostgreSQL e disponibiliza dashboard Streamlit com análises de humor, sono, treinos e produtividade (7+ tipos de gráficos). Backend containerizado com Docker e migrações de banco versionadas em Alembic.",
+    "descricao_longa": "Acompanhar hábitos diários é difícil porque exige abrir aplicativos, preencher formulários e manter disciplina. Este sistema torna isso simples: basta enviar uma mensagem no WhatsApp — exatamente como você faz com amigos — e o sistema registra automaticamente.\n\nO bot conversa por menus e botões interativos: você marca hábitos (academia, leitura, alimentação...) e responde métricas (humor, horários de sono). O registro é flexível — além do dia atual, dá para escolher qualquer data passada por um menu que destaca quais dias ainda estão sem nenhum lançamento, facilitando preencher lacunas no histórico.\n\nO dashboard mostra tendências de humor, qualidade do sono, frequência de exercícios e produtividade ao longo do tempo, com gráficos que revelam padrões que seriam impossíveis de perceber no dia a dia.\n\nNos bastidores, o backend é containerizado com Docker e Docker Compose (sobe junto com um PostgreSQL local isolado) e as migrações de banco são versionadas com Alembic e aplicadas automaticamente — o mesmo padrão de engenharia usado em produção.",
+    "impacto": "Converte conversas naturais no WhatsApp em dados estruturados e visualizações que revelam padrões de bem-estar ao longo do tempo, sobre uma base de engenharia reprodutível (Docker + migrações versionadas).",
     "stack": [
       "Python",
       "FastAPI",
@@ -67,17 +67,20 @@
       "PostgreSQL",
       "SQLAlchemy",
       "Alembic",
+      "Docker",
+      "Docker Compose",
       "ECharts",
       "Plotly"
     ],
     "metricas": {
       "Categorias": "Saúde, Evolução pessoal, Lazer",
       "Gráficos": "7+ tipos interativos",
+      "Containerização": "Docker + Compose (Postgres local isolado)",
       "Deploy": "Render + Streamlit Cloud",
       "Integração": "WhatsApp Cloud API (Meta)"
     },
     "imagem": "minha_vida_-_rastreador_de_háb.PNG",
-    "github": "https://github.com/Diogohenrique1334",
+    "github": "https://github.com/Diogohenrique1334/MINHA-VIDA",
     "demo": null,
     "destaque": true
   },
@@ -132,6 +135,53 @@
       "Modelos cobertos": "Regressão linear/logística, séries temporais, K-means",
       "Instalação": "pip install -e (editável)",
       "Uso": "Importada em todos os projetos"
+    },
+    "imagem": null,
+    "github": null,
+    "demo": null,
+    "destaque": true
+  },
+  {
+    "titulo": "Biblioteca CX - Utilitários de Customer Experience",
+    "categoria": "Engenharia de Dados",
+    "descricao": "Biblioteca Python interna que centraliza as transformações e análises recorrentes de Customer Experience que desenvolvo no ambiente profissional: tratamento de dados estruturados e não estruturados da jornada do cliente (voz do cliente, NPS, SAC, speech analytics, CRM, redes sociais), padronização de pipelines e funções reutilizáveis para os modelos e dashboards de CX da área.",
+    "descricao_longa": "No dia a dia da área de Dados CX eu repetia as mesmas transformações para preparar dados de experiência do cliente vindos de muitas fontes diferentes (Qualtrics, speech analytics, NPS, SAC, CRM, redes sociais). Em vez de reescrever esse código a cada nova análise, empacotei tudo em uma biblioteca interna — o mesmo conceito da minha Baltazar, mas voltada ao domínio de telecom e Customer Experience.\n\nIsso padroniza como a área trata e integra esses dados, acelera a entrega de novas análises e garante consistência entre os relatórios e modelos de experiência do cliente.",
+    "impacto": "Padroniza e acelera as análises de Customer Experience, eliminando retrabalho na preparação de dados de múltiplas fontes (NPS, SAC, speech, CRM) e garantindo consistência entre relatórios e modelos da área.",
+    "stack": [
+      "Python",
+      "pandas",
+      "numpy",
+      "SQL",
+      "scikit-learn"
+    ],
+    "metricas": {
+      "Tipo": "Biblioteca interna (ambiente profissional)",
+      "Domínio": "Customer Experience / Telecom",
+      "Fontes integradas": "NPS, SAC, speech, CRM, redes sociais",
+      "Conceito": "Mesma filosofia da Baltazar, aplicada ao trabalho"
+    },
+    "imagem": null,
+    "github": null,
+    "demo": null,
+    "destaque": true
+  },
+  {
+    "titulo": "Biblioteca de Inteligência Operacional",
+    "categoria": "Engenharia de Dados",
+    "descricao": "Biblioteca Python interna que reúne as transformações e rotinas analíticas recorrentes dos projetos de Inteligência Operacional: preparação de dados operacionais, cálculo de indicadores de desempenho, automação de relatórios e funções reutilizáveis que padronizam as entregas da área.",
+    "descricao_longa": "Os projetos de Inteligência Operacional exigem repetidamente as mesmas etapas: limpar e preparar dados operacionais, calcular indicadores de desempenho e gerar relatórios recorrentes. Para não refazer esse trabalho a cada projeto, organizei essas rotinas em uma biblioteca interna reutilizável.\n\nÉ a mesma filosofia da Baltazar aplicada ao ambiente profissional: empacotar o que se repete para ganhar velocidade, consistência e manutenção mais simples — fundamento que sustentou projetos premiados na área.",
+    "impacto": "Acelera e padroniza as entregas de Inteligência Operacional, reduzindo retrabalho na preparação de dados e na geração de indicadores e relatórios recorrentes.",
+    "stack": [
+      "Python",
+      "pandas",
+      "numpy",
+      "SQL"
+    ],
+    "metricas": {
+      "Tipo": "Biblioteca interna (ambiente profissional)",
+      "Domínio": "Inteligência Operacional",
+      "Foco": "Indicadores, automação de relatórios, preparação de dados",
+      "Conceito": "Mesma filosofia da Baltazar, aplicada ao trabalho"
     },
     "imagem": null,
     "github": null,
