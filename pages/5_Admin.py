@@ -151,6 +151,12 @@ with tab_projetos:
                     key=f"p_demo_{i}",
                     help="URL do app publicado (Streamlit Cloud, Render, etc.) ou vídeo da demo",
                 )
+                novo_artigo = st.text_input(
+                    "Link do artigo / post (opcional)",
+                    p.get("artigo", "") or "",
+                    key=f"p_artigo_{i}",
+                    help="URL de uma publicação sobre o projeto (LinkedIn, Medium, etc.)",
+                )
                 novo_destaque = st.checkbox(
                     "Destacar?", p.get("destaque", True), key=f"p_dest_{i}"
                 )
@@ -186,6 +192,7 @@ with tab_projetos:
                             "stack": [s.strip() for s in nova_stack.split(",") if s.strip()],
                             "github": novo_github or None,
                             "demo": novo_demo or None,
+                            "artigo": novo_artigo or None,
                             "destaque": novo_destaque,
                             "imagem": nome_foto,
                         }
@@ -215,6 +222,10 @@ with tab_projetos:
             "Link da demo / projeto ao vivo (opcional)",
             help="URL do app publicado (Streamlit Cloud, Render, etc.) ou vídeo da demo",
         )
+        novo_artigo = st.text_input(
+            "Link do artigo / post (opcional)",
+            help="URL de uma publicação sobre o projeto (LinkedIn, Medium, etc.)",
+        )
         novo_destaque = st.checkbox("Destacar?", True)
         arquivo_foto = st.file_uploader(
             "Foto do projeto (PNG/JPG - opcional)",
@@ -242,6 +253,7 @@ with tab_projetos:
                 "imagem": nome_foto,
                 "github": novo_github or None,
                 "demo": novo_demo or None,
+                "artigo": novo_artigo or None,
                 "destaque": novo_destaque,
             }
             if validar_projeto(novo_proj):

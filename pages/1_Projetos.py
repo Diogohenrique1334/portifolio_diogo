@@ -114,6 +114,8 @@ def _render_card(p: dict):
             acoes.append(("🚀 Ver projeto", p["demo"]))
         if p.get("github"):
             acoes.append(("🐙 GitHub", p["github"]))
+        if p.get("artigo"):
+            acoes.append(("📝 Ler no LinkedIn", p["artigo"]))
         acoes.append(("✉ Fale comigo", mailto))
 
         cols_acoes = st.columns(len(acoes))
