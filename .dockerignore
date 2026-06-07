@@ -1,0 +1,36 @@
+# Git
+.git
+.gitignore
+
+# Segredos e ambiente (injetados em runtime via env_file/secrets)
+.env
+.env.local
+.env*.local
+.env.example
+
+# Cache Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Backups de dados gerados pelo painel admin
+data/*_bkp_*.json
+
+# Secrets do Streamlit (a config.toml de tema É copiada de propósito)
+.streamlit/secrets.toml
+
+# IDE / editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*.tmp.*
+
+# Docker (evita auto-inclusão)
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# Docs e instruções que não vão para a imagem
+CLAUDE.md
