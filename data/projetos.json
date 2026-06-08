@@ -241,5 +241,33 @@
     "demo": null,
     "artigo": "https://www.linkedin.com/posts/diogooliveira1334_estudo-ci%C3%AAncia-de-dados-e-todo-semestre-ugcPost-7141242850423336960-g4Rp/",
     "destaque": true
+  },
+  {
+    "titulo": "Assistente de Portfólio com RAG — Pergunte sobre minha trajetória",
+    "categoria": "NLP",
+    "descricao": "Agente conversacional (RAG) embutido no próprio portfólio: o visitante pergunta em linguagem natural sobre a trajetória, projetos e skills, e o sistema recupera os trechos relevantes por similaridade semântica (embeddings + pgvector no Neon) e redige a resposta com um LLM, citando as fontes.",
+    "descricao_longa": "Em vez de um portfólio estático, este projeto deixa o recrutador simplesmente perguntar — \"qual a experiência dele com visão computacional?\", \"quantos projetos já fez e qual o tempo médio?\" — e recebe uma resposta fundamentada nos meus dados reais.\n\nNos bastidores é um pipeline de RAG (Retrieval-Augmented Generation): todo o conteúdo do portfólio (perfil, projetos, experiências) mais a trajetória de execução de 50+ projetos (vinda do banco do meu projeto Diagnóstico, no Neon) é transformado em documentos, convertido em embeddings pela OpenAI e indexado no pgvector. A cada pergunta, recupero os trechos mais próximos por similaridade de cosseno e o LLM responde usando apenas esse contexto — e a interface mostra as fontes, evitando alucinação.\n\nA parte que mais me orgulha é a curadoria de segurança: como há projetos profissionais, apliquei uma allowlist fail-safe — só projetos de empresas explicitamente liberadas (acadêmicos/pessoais) aparecem em detalhe; todo o resto, inclusive qualquer cliente desconhecido, entra apenas de forma agregada e anonimizada (contagens, tempo médio, frequência de skills), sem nomes nem dados sensíveis. Dado confidencial nunca vaza por omissão.",
+    "impacto": "Transforma o portfólio em uma experiência interativa e demonstra, na prática, domínio de RAG, embeddings, busca vetorial e curadoria de dados sensíveis — com a demo viva na própria página.",
+    "stack": [
+      "Python",
+      "Streamlit",
+      "OpenAI GPT",
+      "Embeddings",
+      "RAG",
+      "pgvector",
+      "PostgreSQL (Neon)",
+      "Docker"
+    ],
+    "metricas": {
+      "Fontes indexadas": "Portfólio + 50+ projetos de execução (Diagnóstico)",
+      "Recuperação": "Busca vetorial em pgvector (similaridade de cosseno)",
+      "Segurança de dados": "Allowlist fail-safe — profissional só agregado/anonimizado",
+      "Transparência": "Cita as fontes de cada resposta",
+      "Proteções": "Rate limit por sessão + perguntas sugeridas"
+    },
+    "imagem": "",
+    "github": "https://github.com/Diogohenrique1334/portifolio_diogo",
+    "demo": null,
+    "destaque": true
   }
 ]

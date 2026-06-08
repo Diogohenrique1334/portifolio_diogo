@@ -89,8 +89,8 @@ with col_logout:
 st.divider()
 
 # Abas
-tab_projetos, tab_experiencia, tab_artigos, tab_perfil = st.tabs(
-    ["📦 Projetos", "💼 Experiência", "✍️ Artigos", "👤 Perfil"]
+tab_projetos, tab_experiencia, tab_artigos, tab_perfil, tab_assistente = st.tabs(
+    ["📦 Projetos", "💼 Experiência", "✍️ Artigos", "👤 Perfil", "🤖 Assistente"]
 )
 
 # ================================================================
@@ -602,3 +602,37 @@ with tab_perfil:
         "💡 **Dica:** Configure a senha do admin nas Streamlit Secrets "
         "(Streamlit Cloud) ou variável de ambiente `PORTFOLIO_ADMIN_PASSWORD`"
     )
+
+# ================================================================
+# ABA: ASSISTENTE (RAG)
+# ================================================================
+with tab_assistente:
+    st.markdown("### Assistente da Trajetória (RAG)")
+    st.caption(
+        "O assistente responde a partir de um índice de embeddings. Edições no "
+        "conteúdo (projetos, experiências, perfil) ou no Diagnóstico só passam a "
+        "valer para ele **após reindexar**."
+    )
+
+    from agente.config import AgenteConfig
+
+    cfg_agente = AgenteConfig()
+    if not cfg_agente.configurado:
+        st.warning(
+            "Configure `OPENAI_API_KEY` e `DATABASE_URL` (.env ou Secrets) para "
+            "habilitar o assistente."
+        )
+    else:
+        st.info(
+            "Reindexar lê os JSONs e o Diagnóstico, gera embeddings (chamada paga à "
+            "OpenAI) e regrava o índice. Rode após editar o conteúdo."
+        )
+        if st.button("🔄 Reindexar agente", type="primary"):
+            try:
+                from agente.indexador import reindexar
+
+                with st.spinner("Reindexando… (pode levar alguns segundos)"):
+                    total = reindexar(cfg_agente)
+                st.success(f"✅ Índice reconstruído com {total} documentos.")
+            except Exception as erro:
+                st.error(f"❌ Falha ao reindexar: {erro}")

@@ -14,6 +14,7 @@ Portfólio pessoal em **Streamlit** de Diogo Oliveira — Cientista de Dados. Um
 - **Currículo** — experiências profissionais, formação e download do CV em PDF.
 - **Certificações** — certificados e cursos concluídos.
 - **Artigos** — publicações e conteúdos técnicos.
+- **Assistente** — chat com IA (**RAG**) que responde perguntas sobre a trajetória, projetos e formação do Diogo, usando apenas o conteúdo do portfólio como fonte.
 - **Admin** — painel protegido por senha para editar projetos, experiências, perfil e artigos, com **backup automático** dos dados a cada alteração.
 
 Todo o conteúdo é servido a partir de arquivos JSON em [`data/`](data/), editáveis pela interface admin.
@@ -44,11 +45,22 @@ portifolio_diogo/
 │   ├── 3_Certificacoes.py
 │   ├── 4_Artigos.py
 │   └── 5_Admin.py        # Painel protegido por senha
+├── agente/               # Assistente da trajetória (RAG) — chat embutido no Home
+│   ├── config.py         # Credenciais e parâmetros (.env / st.secrets)
+│   ├── corpus.py         # JSONs de data/ → documentos textuais
+│   ├── diagnostico.py    # Integração curada com o banco do Diagnóstico (Neon)
+│   ├── embeddings.py     # Wrapper de embeddings OpenAI
+│   ├── vector_store.py   # Índice pgvector no Postgres Neon
+│   ├── indexador.py      # (Re)constrói o índice (offline)
+│   ├── retrieval.py      # Pergunta → trechos relevantes
+│   ├── seguranca.py      # Validação, rate limit, perguntas sugeridas
+│   └── agente.py         # Orquestra retrieval + LLM → resposta + fontes
 ├── utils/                # Componentes e helpers
 │   ├── sidebar.py        # Sidebar compartilhada
 │   ├── styles.py         # Injeção de CSS
 │   ├── cards.py          # Cards de projeto
 │   ├── tech_icons.py     # Badges de tecnologia
+│   ├── assistente_widget.py # UI do chat RAG (renderizado no Home)
 │   └── admin_helpers.py  # Lógica do painel admin (backup, persistência)
 ├── data/                 # Conteúdo dinâmico (JSON)
 │   ├── perfil.json
@@ -130,6 +142,62 @@ O painel em `pages/5_Admin.py` permite editar todo o conteúdo do portfólio pel
 ```toml
 portfolio_admin_password = "sua_senha_secreta"
 ```
+
+---
+
+## 🤖 Assistente da Trajetória (RAG)
+
+Chat embutido no **Home** (`Home.py` via `utils/assistente_widget.py`) que responde
+perguntas sobre a carreira do Diogo. O
+conteúdo dos JSONs de `data/` é transformado em documentos (`agente/corpus.py`),
+embeddado (OpenAI) e indexado no **pgvector** (Postgres Neon). A cada pergunta, os
+trechos mais relevantes são recuperados e enviados ao LLM, que responde **usando
+apenas esse contexto** — e a interface mostra as fontes usadas.
+
+> **Nota de design:** o corpus é pequeno (cabe inteiro em contexto). O RAG aqui é uma
+> **demonstração da técnica** — não uma necessidade. A escolha é assumida de propósito.
+
+**Padrão técnico:** retrieval semântico (RAG), correto para conteúdo textual. *(Para o
+agente de gastos do projeto Finanças, dado estruturado, o padrão é outro: tool calling.)*
+
+### Configuração
+
+1. No `.env` (ou em *Secrets* do Streamlit Cloud), defina:
+   - `OPENAI_API_KEY` — chave OpenAI (embeddings + chat)
+   - `DATABASE_URL` — Postgres Neon (aceita URL libpq; sufixo `+asyncpg` é removido)
+   - *(opcional)* `OPENAI_CHAT_MODEL`, `OPENAI_EMBEDDING_MODEL`, `EMBEDDING_DIM`
+2. Construa o índice (uma vez, e sempre que editar o conteúdo):
+   ```bash
+   python -m agente.indexador
+   ```
+3. Abra a página **Assistente** no app.
+
+Se as credenciais não estiverem configuradas ou o índice não existir, a página exibe
+uma instrução amigável em vez de quebrar.
+
+### Integração opcional com o Diagnóstico (curada)
+
+O agente pode ser enriquecido com a trajetória de execução (50+ projetos) vinda do
+banco do projeto **Diagnóstico** (Neon). A segurança é por **allowlist**
+(`agente/diagnostico.py`):
+
+- Projetos cuja `empresa` estiver em `DIAGNOSTICO_EMPRESAS_DETALHE` são expostos **em
+  detalhe** (acadêmico/hobby). Todo o resto — inclusive empresa desconhecida/nova —
+  entra **apenas em forma agregada** (contagens, tempo médio, frequência de skills),
+  **sem** nomes, clientes, e-mails ou texto livre. Dado profissional/Claro nunca vaza
+  por omissão (*fail-safe*).
+- **Antes de indexar, audite** o que será exposto:
+  ```bash
+  python -m agente.diagnostico   # relatório: empresas → modo (detalhe/agregado)
+  ```
+- Configure `DIAGNOSTICO_DATABASE_URL` e `DIAGNOSTICO_EMPRESAS_DETALHE` no `.env`. Se a
+  URL ficar vazia, a integração é simplesmente ignorada.
+
+### Proteções (agente público)
+
+- Limite de tamanho da pergunta e **rate limit por sessão** (`agente/seguranca.py`).
+- **Perguntas sugeridas** para guiar o uso e reduzir chamadas aleatórias.
+- O system prompt restringe o escopo e resiste a *prompt injection*.
 
 ---
 

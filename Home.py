@@ -9,6 +9,7 @@ load_dotenv()
 from utils.sidebar import render_sidebar
 from utils.styles import inject_css
 from utils.tech_icons import render_tech_badge
+from utils.assistente_widget import render_assistente
 
 st.set_page_config(
     page_title="Diogo Oliveira — Cientista de Dados",
@@ -132,3 +133,18 @@ skills = [
 
 badges_html = "".join(render_tech_badge(s) for s in skills)
 st.markdown(f'<div class="skills-wrap">{badges_html}</div>', unsafe_allow_html=True)
+
+st.divider()
+
+# ================================================================
+# ASSISTENTE DA TRAJETÓRIA (RAG)
+# ================================================================
+st.markdown(
+    '<p class="sec-heading">Pergunte sobre minha trajetória</p>',
+    unsafe_allow_html=True,
+)
+st.caption(
+    "Assistente com IA que responde sobre experiência, projetos e formação — "
+    "usando apenas o conteúdo deste portfólio como fonte."
+)
+render_assistente()
