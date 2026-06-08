@@ -269,5 +269,35 @@
     "github": "https://github.com/Diogohenrique1334/portifolio_diogo",
     "demo": null,
     "destaque": true
+  },
+  {
+    "titulo": "Treinamento comercial gera vendas? — Impacto causal (projeto premiado)",
+    "categoria": "Machine Learning",
+    "descricao": "Análise causal premiada na Claro: o treinamento comercial impacta as vendas? Combina NLP (tema→produto), clusterização de lojas e diff-in-differences para isolar o efeito do treinamento do viés de seleção. Reconstruído de forma limpa e reprodutível sobre dados sintéticos.",
+    "descricao_longa": "Na Claro, recebi a missão de medir se o treinamento comercial gerava resultado real nas vendas — e o projeto foi premiado internamente por alcançar uma granularidade de informação que ninguém havia conseguido.\n\nO método encadeia quatro técnicas: (1) NLP para casar o tema do treinamento com o produto vendido (CountVectorizer + regressão logística sobre nomes fuzzy/abreviados); (2) clusterização das ~300 lojas em P/M/G por volume (KMeans + silhueta); (3) o desenho do experimento, comparando vendedores treinados e não-treinados na mesma loja, semana e ano; e (4) a estimativa de impacto.\n\nEsta é a reconstrução madura do projeto, sobre dados 100% sintéticos (os reais são confidenciais/LGPD), com o rigor que eu adicionaria hoje. O grande aprendizado está aqui: a comparação ingênua sugeria +42% de efeito — mas isso mistura o skill do vendedor com o treinamento (viés de seleção). Um diff-in-differences (Poisson GLM) revela que o efeito causal real é +12%, e um teste de Wilcoxon pareado (p < 0.001) com tamanho de efeito e intervalo de confiança substitui o antigo \"X% das lojas\". É a diferença entre um bom resultado e o método que o sustenta.",
+    "impacto": "Quantifica o retorno do treinamento comercial com rigor causal, separando efeito real (+12%) de viés de seleção (+42% aparente). Projeto premiado por granularidade inédita de informação.",
+    "stack": [
+      "Python",
+      "scikit-learn",
+      "statsmodels",
+      "pandas",
+      "NLP (CountVectorizer)",
+      "KMeans",
+      "Diff-in-Differences",
+      "Teste de Wilcoxon",
+      "Poisson GLM"
+    ],
+    "metricas": {
+      "Reconhecimento": "Premiado internamente na Claro",
+      "Escala": "~300 lojas · milhares de semana-loja",
+      "Método": "NLP + Clusterização + Diff-in-Differences",
+      "Rigor estatístico": "Wilcoxon pareado (p<0.001) + IC + tamanho de efeito",
+      "Achado-chave": "Ingênuo +42% → DiD +12% (corrige viés de seleção)"
+    },
+    "imagem": "",
+    "github": null,
+    "demo": null,
+    "artigo": "https://www.linkedin.com/posts/diogooliveira1334_celebrando-conquistas-tive-a-honra-de-ugcPost-7282149315605598209-yIiq/",
+    "destaque": true
   }
 ]
