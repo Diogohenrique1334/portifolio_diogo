@@ -5,7 +5,7 @@ from utils.sidebar import render_sidebar
 from utils.styles import inject_css
 
 st.set_page_config(
-    page_title="Certificações — Diogo Oliveira",
+    page_title="Certificações - Diogo Oliveira",
     page_icon="🏆",
     layout="wide",
 )

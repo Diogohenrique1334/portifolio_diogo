@@ -7,7 +7,7 @@ from utils.styles import inject_css
 from utils.tech_icons import render_tech_badge
 
 st.set_page_config(
-    page_title="Projetos — Diogo Oliveira",
+    page_title="Projetos - Diogo Oliveira",
     page_icon="🗂️",
     layout="wide",
 )
@@ -124,7 +124,7 @@ def _render_card(p: dict):
 
         # ---- Saber mais (para leitores não técnicos) ----
         if p.get("descricao_longa"):
-            with st.expander("📖 Saber mais — explicação sem jargões"):
+            with st.expander("📖 Saber mais - explicação sem jargões"):
                 st.markdown(p["descricao_longa"])
                 if p.get("impacto"):
                     st.success(f"**Impacto:** {p['impacto']}")

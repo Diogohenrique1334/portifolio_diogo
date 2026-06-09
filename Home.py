@@ -12,7 +12,7 @@ from utils.tech_icons import render_tech_badge
 from utils.assistente_widget import render_assistente
 
 st.set_page_config(
-    page_title="Diogo Oliveira — Cientista de Dados",
+    page_title="Diogo Oliveira - Cientista de Dados",
     page_icon="📊",
     layout="wide",
 )
@@ -64,17 +64,18 @@ st.markdown('<p class="sec-heading">Sobre mim</p>', unsafe_allow_html=True)
 st.markdown(
     """
     <p class="about-text">
-        Cientista de Dados com 8 anos de experiência em análise e modelagem de dados, atuando no setor de
-        telecomunicações na Claro SA — e anteriormente na Comgás e JBS. Graduado em Ciência de Dados pela
-        Universidade Anhembi Morumbi e em pós-graduação em Engenharia de Machine Learning na Data Science Academy.
+        Cientista de Dados com mais de 8 anos de experiência em análise, engenharia e modelagem de dados, atuando atualmente 
+        no setor de telecomunicações na Claro, com passagens por Comgás e JBS. Graduado em Ciência de Dados pela 
+        Universidade Anhembi Morumbi e pós-graduando em Engenharia de Machine Learning pela Data Science Academy.
         <br><br>
-        Construo soluções end-to-end: desde a extração e transformação de dados até APIs REST, modelos de
-        Machine Learning e dashboards interativos prontos para produção. Tenho foco em projetos com impacto
-        real, redução de tempo operacional, automação de processos e insights que mudam decisões.
+        Atuo no desenvolvimento de soluções de dados de ponta a ponta, desde a extração, transformação e modelagem das informações 
+        até a construção de APIs REST, aplicações analíticas, modelos de Machine Learning e dashboards interativos 
+        prontos para produção. Meu foco está na criação de soluções que gerem impacto mensurável para o negócio, 
+        reduzam esforço operacional e apoiem a tomada de decisão baseada em dados.
         <br><br>
-        Experiência com Computer Vision (YOLOv8), integração com LLMs (GPT-4), automação via WhatsApp API
-        e visualização avançada com ECharts e Streamlit. Todos os projetos são entregues com arquitetura
-        limpa: separação em camadas, banco de dados gerenciado com Alembic e deploy em nuvem.
+        Possuo experiência em projetos de automação inteligente, visão computacional com YOLOv8, integração de modelos de linguagem (LLMs), 
+        desenvolvimento de aplicações orientadas a dados e construção de pipelines escaláveis. Também atuo na implementação de 
+        arquiteturas modernas, com código modular, versionamento de banco de dados, integração contínua e deploy em ambientes de nuvem.
     </p>
     """,
     unsafe_allow_html=True,
@@ -144,7 +145,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 st.caption(
-    "Assistente com IA que responde sobre experiência, projetos e formação — "
-    "usando apenas o conteúdo deste portfólio como fonte."
+    "Assistente com IA que responde sobre experiência, projetos e formação, "
+    "usando o conteúdo deste portfólio como fonte."
 )
 render_assistente()

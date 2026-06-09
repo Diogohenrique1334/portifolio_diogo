@@ -7,7 +7,7 @@ from utils.tech_icons import render_tech_badge
 from utils.cards import edu_card, edu_grid
 
 st.set_page_config(
-    page_title="Currículo — Diogo Oliveira",
+    page_title="Currículo - Diogo Oliveira",
     page_icon="📄",
     layout="wide",
 )

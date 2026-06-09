@@ -6,10 +6,12 @@
       "empresa": "Claro SA",
       "local": "São Paulo, SP",
       "bullets": [
-        "Responsável pela execução e gestão dos principais projetos de Ciência de Dados da área de inteligência operacional (Customer Experience e PME no setor de telecomunicações)",
-        "Modelagem estatística e preditiva e processamento de grandes volumes de dados com Python",
-        "Automação de processos e relatórios com Python, reduzindo trabalho manual recorrente",
-        "Criação de dashboards interativos (Power BI e Streamlit) para apoiar a tomada de decisão de equipes comerciais e de operações"
+        "Responsável pelo desenvolvimento de soluções analíticas e produtos de dados para áreas estratégicas da companhia;",
+        "Liderança técnica de iniciativas de Ciência de Dados, Engenharia de Dados e Inteligência Artificial;",
+        "Desenvolvimento de modelos preditivos, automações e aplicações corporativas que apoiam a tomada de decisão e a eficiência operacional;",
+        "Construção de arquiteturas de dados end-to-end, incluindo ingestão, transformação, armazenamento, APIs e visualização;",
+        "Criação de dashboards executivos e indicadores de performance utilizados por lideranças para acompanhamento dos resultados do negócio;",
+        "Implantação de soluções em produção utilizando Python, SQL, Power BI, Streamlit, bancos de dados relacionais e serviços em nuvem."
       ]
     },
     {
