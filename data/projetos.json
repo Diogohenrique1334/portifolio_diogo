@@ -26,32 +26,34 @@
     "destaque": true
   },
   {
-    "titulo": "Finanças Pessoais - Extração de Faturas com LLM",
+    "titulo": "Finanças Pessoais - Agente de Gastos (Tool Calling) + Extração com LLM",
     "categoria": "NLP",
-    "descricao": "Pipeline de ingestão de faturas de cartão de crédito em PDF (Bradesco/Santander) usando GPT-4 para extração e parsing inteligente de transações, com dashboard interativo em ECharts para análise de gastos por categoria, cidade e período.",
-    "descricao_longa": "Quem já tentou organizar os gastos do cartão de crédito sabe como é trabalhoso, baixar o PDF da fatura, abrir planilha, copiar cada linha manualmente... Este sistema faz tudo isso automaticamente, categoriza os meus gastos e alimenta um painel interativos.\n\nEle lê o PDF da fatura, usa inteligência artificial (GPT-4 da OpenAI) para entender e categorizar cada transação, mesmo as que aparecem com nomes estranhos ou abreviações, e salva tudo em um banco de dados. O dashboard mostra visualmente onde o dinheiro foi gasto, com gráficos por categoria, cidade, período e comparações mensais.",
-    "impacto": "Elimina o trabalho manual de categorização de gastos, transformando faturas PDF em análises visuais interativas automaticamente.",
+    "descricao": "Agente conversacional que responde perguntas sobre os gastos em linguagem natural via tool calling (não-RAG): o LLM escolhe a ferramenta e os parâmetros, e a agregação roda em pandas determinístico — o número vem da ferramenta, não do modelo, eliminando alucinação numérica. Sobre um pipeline que extrai faturas de cartão em PDF com LLM e um dashboard interativo em ECharts (gastos por categoria, cidade e período), em dois microsserviços (FastAPI + Streamlit) dockerizados.",
+    "descricao_longa": "Quem já tentou organizar os gastos do cartão de crédito sabe como é trabalhoso, baixar o PDF da fatura, abrir planilha, copiar cada linha manualmente... Este sistema faz tudo isso automaticamente, categoriza os meus gastos e alimenta um painel interativo.\n\nEle lê o PDF da fatura, usa inteligência artificial (OpenAI) para entender e categorizar cada transação, mesmo as que aparecem com nomes estranhos ou abreviações, e salva tudo em um banco de dados. O dashboard mostra visualmente onde o dinheiro foi gasto, com gráficos por categoria, cidade, período e comparações mensais.\n\nMas o que transforma o dashboard em produto de IA aplicada é o Agente de Gastos: o usuário pergunta \"quanto gastei com transporte em março?\" ou \"estou gastando mais que no mês passado?\" e recebe a resposta sobre os dados reais. A decisão técnica central foi NÃO usar RAG nem text-to-SQL - dado estruturado pede agregação exata, não recuperação semântica. O LLM apenas decide qual ferramenta de consulta chamar e com quais parâmetros (tool calling); a conta é feita em pandas determinístico sobre a mesma fonte de verdade do dashboard - sem SQL gerado por IA (zero injection) e sem alucinação numérica, porque o número vem da ferramenta. O chat exibe as fontes (ferramentas e dados usados) de cada resposta.\n\nE a parte que separa \"fazer um agente\" de \"saber avaliá-lo\": um golden set de 20 perguntas mede acerto de roteamento, acerto numérico e taxa de alucinação contra ground truth calculado em pandas, fora do agente. Resultado: 100% de acerto e 0% de alucinação, a ~R$ 0,015 por pergunta. As agregações e a lógica de avaliação são cobertas por 46 testes determinísticos.",
+    "impacto": "Transforma faturas em PDF num produto de IA: além de eliminar a categorização manual, permite perguntar sobre os gastos em linguagem natural com respostas auditáveis (0% de alucinação medida) e baratas (~R$ 0,015/pergunta), usando tool calling - o padrão de agentes mais cobrado do mercado.",
     "stack": [
       "Python",
       "FastAPI",
       "Streamlit",
-      "OpenAI GPT-4",
+      "LangChain (Tool Calling)",
+      "OpenAI (GPT)",
       "PostgreSQL",
       "SQLAlchemy",
-      "Alembic",
       "PyPDF2",
-      "ECharts"
+      "ECharts",
+      "Docker"
     ],
     "metricas": {
+      "Agente (tool calling)": "100% de acerto de roteamento e numérico · 0% de alucinação (golden set de 20 perguntas)",
+      "Custo do agente": "~R$ 0,015 por pergunta · ~9s de latência",
       "Qualidade da extração": "98% de cobertura · 99,5% de reconciliação (fatura de teste)",
-      "Bancos suportados": "Bradesco + Santander",
+      "Arquitetura": "2 microsserviços (FastAPI + Streamlit) em Docker",
       "Banco de dados": "PostgreSQL (Neon Cloud)",
-      "Gráficos": "10+ tipos interativos",
-      "Matching de cidades": "rapidfuzz (fuzzy)"
+      "Gráficos": "10+ tipos interativos"
     },
     "imagem": "finanças_pessoais__extração_de.PNG",
     "github": "https://github.com/Diogohenrique1334/Financas",
-    "demo": "https://financas-de-diogooliveira.streamlit.app/",
+    "demo": null,
     "destaque": true
   },
   {

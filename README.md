@@ -1,5 +1,8 @@
 # Portfólio · Diogo Oliveira
 
+[![CI](https://github.com/Diogohenrique1334/portifolio_diogo/actions/workflows/ci.yml/badge.svg)](https://github.com/Diogohenrique1334/portifolio_diogo/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue)
+
 Portfólio pessoal em **Streamlit** de Diogo Oliveira — Cientista de Dados. Uma aplicação web multipágina que apresenta projetos, currículo, certificações e artigos, com um **painel administrativo protegido por senha** para edição dinâmica de todo o conteúdo (sem precisar mexer no código).
 
 🌐 **Portfólio online:** [datascienceportfol.io/diogohenrique1334](https://www.datascienceportfol.io/diogohenrique1334)
