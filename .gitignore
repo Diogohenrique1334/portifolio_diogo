@@ -26,3 +26,6 @@ data/*_bkp_*.json
 
 # Assets descartados
 assets/foto__.png
+
+# claude
+CLAUDE.md

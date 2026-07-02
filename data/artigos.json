@@ -5,7 +5,51 @@
     "plataforma": "LinkedIn",
     "data": "Dez 2024",
     "url": "https://www.linkedin.com/posts/diogooliveira1334_quem-aqui-quer-encontrar-a-melhor-vers%C3%A3o-activity-7275522941092532224-hSD0",
-    "tags": ["Análise de Dados", "Streamlit", "Hábitos", "Storytelling"],
+    "tags": [
+      "Análise de Dados",
+      "Streamlit",
+      "Hábitos",
+      "Storytelling"
+    ],
     "projeto_relacionado": "Minha Vida - Rastreador de Hábitos via WhatsApp"
+  },
+  {
+    "titulo": "O que R$ 36 mil em 795 compras me ensinaram quando fiquei sem renda.",
+    "resumo": "O que meus próprios dados revelaram sobre consumo, rotina e escolhas, e como isso mudou minha relação com dinheiro.",
+    "plataforma": "LinkedIn",
+    "data": "2026",
+    "url": "https://www.linkedin.com/pulse/o-que-r-36-mil-em-795-compras-me-ensinaram-quando-fiquei-oliveira-2xbaf",
+    "tags": [
+      "Engenharia de dados",
+      "llm"
+    ],
+    "projeto_relacionado": "Financas pessoas"
+  },
+  {
+    "titulo": "62 Projetos, 23 Clientes. A História que Eu Não Esquecerei Mais.",
+    "resumo": "Minha história em dados\nTodo fim de ano eu esquecia projetos.\nAgora não esqueço mais, registrei tudo, transformei meu trabalho em base de dados e construí um dashboard que mostra quais projetos fiz, quais skills usei e até quando segurei 10 demandas ao mesmo tempo.",
+    "plataforma": "Linkedin",
+    "data": "Julho 2026",
+    "url": "https://www.linkedin.com/posts/diogooliveira1334_minha-hist%C3%B3ria-em-dados-todo-fim-de-ano-eu-ugcPost-7478093599583301632-yXEm/?utm_source=share&utm_medium=member_desktop&rcm=ACoAABxKtOoBYPXEGg0v1g4BGF6rH8DOyz14Kzk",
+    "tags": [
+      "DataScience",
+      "Analytics",
+      "ProjetosDeDados",
+      "GestãoDeProjetos"
+    ],
+    "projeto_relacionado": "Diagnóstico"
+  },
+  {
+    "titulo": "Tiraram o jogador, sobrou o cientista de dados, como virei técnico do meu time sem poder jogar.",
+    "resumo": "Sem poder jogar, virei técnico do time. E descobri que o difícil não é escalar, é justificar a escalação sem ferir amizade.\nResolvi do único jeito que eu sei... com dados. Escrevi sobre isso aqui:",
+    "plataforma": "Linkedin",
+    "data": "Junho 2026",
+    "url": "https://www.linkedin.com/posts/diogooliveira1334_sem-poder-jogar-virei-t%C3%A9cnico-do-time-e-ugcPost-7476015362585608192--l4n/?utm_source=share&utm_medium=member_desktop&rcm=ACoAABxKtOoBYPXEGg0v1g4BGF6rH8DOyz14Kzk",
+    "tags": [
+      "DataScience",
+      "Analytics",
+      "ProjetosDeDados"
+    ],
+    "projeto_relacionado": "BDC"
   }
 ]

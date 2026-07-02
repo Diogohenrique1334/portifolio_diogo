@@ -28,7 +28,7 @@
   {
     "titulo": "Finanças Pessoais - Agente de Gastos (Tool Calling) + Extração com LLM",
     "categoria": "NLP",
-    "descricao": "Agente conversacional que responde perguntas sobre os gastos em linguagem natural via tool calling (não-RAG): o LLM escolhe a ferramenta e os parâmetros, e a agregação roda em pandas determinístico — o número vem da ferramenta, não do modelo, eliminando alucinação numérica. Sobre um pipeline que extrai faturas de cartão em PDF com LLM e um dashboard interativo em ECharts (gastos por categoria, cidade e período), em dois microsserviços (FastAPI + Streamlit) dockerizados.",
+    "descricao": "Agente conversacional que responde perguntas sobre os gastos em linguagem natural via tool calling (não-RAG): o LLM escolhe a ferramenta e os parâmetros, e a agregação roda em pandas determinístico, o número vem da ferramenta, não do modelo, eliminando alucinação numérica. Sobre um pipeline que extrai faturas de cartão em PDF com LLM e um dashboard interativo em ECharts (gastos por categoria, cidade e período), em dois microsserviços (FastAPI + Streamlit) dockerizados.",
     "descricao_longa": "Quem já tentou organizar os gastos do cartão de crédito sabe como é trabalhoso, baixar o PDF da fatura, abrir planilha, copiar cada linha manualmente... Este sistema faz tudo isso automaticamente, categoriza os meus gastos e alimenta um painel interativo.\n\nEle lê o PDF da fatura, usa inteligência artificial (OpenAI) para entender e categorizar cada transação, mesmo as que aparecem com nomes estranhos ou abreviações, e salva tudo em um banco de dados. O dashboard mostra visualmente onde o dinheiro foi gasto, com gráficos por categoria, cidade, período e comparações mensais.\n\nMas o que transforma o dashboard em produto de IA aplicada é o Agente de Gastos: o usuário pergunta \"quanto gastei com transporte em março?\" ou \"estou gastando mais que no mês passado?\" e recebe a resposta sobre os dados reais. A decisão técnica central foi NÃO usar RAG nem text-to-SQL - dado estruturado pede agregação exata, não recuperação semântica. O LLM apenas decide qual ferramenta de consulta chamar e com quais parâmetros (tool calling); a conta é feita em pandas determinístico sobre a mesma fonte de verdade do dashboard - sem SQL gerado por IA (zero injection) e sem alucinação numérica, porque o número vem da ferramenta. O chat exibe as fontes (ferramentas e dados usados) de cada resposta.\n\nE a parte que separa \"fazer um agente\" de \"saber avaliá-lo\": um golden set de 20 perguntas mede acerto de roteamento, acerto numérico e taxa de alucinação contra ground truth calculado em pandas, fora do agente. Resultado: 100% de acerto e 0% de alucinação, a ~R$ 0,015 por pergunta. As agregações e a lógica de avaliação são cobertas por 46 testes determinísticos.",
     "impacto": "Transforma faturas em PDF num produto de IA: além de eliminar a categorização manual, permite perguntar sobre os gastos em linguagem natural com respostas auditáveis (0% de alucinação medida) e baratas (~R$ 0,015/pergunta), usando tool calling - o padrão de agentes mais cobrado do mercado.",
     "stack": [
@@ -54,7 +54,8 @@
     "imagem": "finanças_pessoais__extração_de.PNG",
     "github": "https://github.com/Diogohenrique1334/Financas",
     "demo": null,
-    "destaque": true
+    "destaque": true,
+    "artigo": "https://www.linkedin.com/pulse/o-que-r-36-mil-em-795-compras-me-ensinaram-quando-fiquei-oliveira-2xbaf"
   },
   {
     "titulo": "Minha Vida - Rastreador de Hábitos via WhatsApp",
@@ -88,33 +89,131 @@
     "destaque": true
   },
   {
-    "titulo": "Diagnóstico - Gestão de Projetos de Dados",
+    "titulo": "Confrapag - Split de Recebíveis: Simuladores Fiscais + CNPJ + Agente de Propostas (IA)",
     "categoria": "Produto de Dados",
-    "descricao": "Sistema full-stack de gestão de portfólio de projetos de Ciência de Dados com entrevistas estruturadas de diagnóstico, pipeline de status com automação de emails via Outlook e dashboards ECharts interativos com 12+ tipos de gráficos, histórico de mudanças e rastreamento de habilidades técnicas.",
-    "descricao_longa": "Gerenciar dezenas de projetos de análise de dados para diferentes clientes - cada um em uma etapa diferente, com equipes e objetivos distintos - é um desafio real. Este sistema resolve isso com uma plataforma personalizada desenvolvida do zero.\n\nO processo começa com uma entrevista estruturada: o sistema guia o levantamento de requisitos com perguntas estratégicas (qual é o objetivo? como o sucesso será medido? o que atrapalha hoje?). A partir daí, cada projeto é acompanhado em até 9 etapas - e a cada mudança de status, os stakeholders recebem emails automáticos com o contexto da atualização.\n\nO dashboard mostra em tempo real quais projetos estão em andamento, quais habilidades técnicas foram mais utilizadas, e como a produtividade evoluiu ao longo do tempo - tudo em gráficos interativos.",
-    "impacto": "Centraliza o gerenciamento de todo um portfólio de projetos de dados, eliminando emails manuais e planilhas dispersas com um sistema profissional de acompanhamento.",
+    "descricao": "App Streamlit multipágina que recria os simuladores tributários da Confrapag sobre Split de Recebíveis (Simples Nacional, Lucro Presumido e Lucro Real), com uma 4ª frente de eficiência tributária em adquirência. Consulta o CNPJ na BrasilAPI e classifica o CNAE (Anexo, alíquota e Fator R) a partir de uma base local de 1.206 CNAEs; um agente de IA (OpenAI) gera propostas comerciais a partir dos números JÁ calculados - o LLM redige, nunca inventa cifra. Arquitetura em camadas com cálculo puro e testável, dockerizado e personalizável por cliente.",
+    "descricao_longa": "Vender uma solução tributária como o Split de Recebíveis é difícil porque o lojista não enxerga, de imediato, quanto economizaria. Este projeto transforma um material estático de apresentação (originalmente 4 slides em HTML/JS) num produto interativo: o vendedor informa o faturamento - ou direto o CNPJ - e mostra na hora a economia projetada em cada regime tributário, com gráficos comparativos 'Sem Split × Com Split'.\n\nSão quatro simuladores. Os três primeiros (Simples Nacional, Lucro Presumido e Lucro Real) replicam fielmente a lógica do material original, com as simplificações tributárias preservadas e sinalizadas em comentários - não 'corrigidas' silenciosamente, para manter paridade com a referência. O quarto, de eficiência tributária na adquirência, faz a ponte com o mundo real: o usuário digita o CNPJ, o app consulta a BrasilAPI, descobre o CNAE da empresa e o cruza com uma base local de 1.206 CNAEs (extraída e estruturada por mim) para identificar o Anexo do Simples, a alíquota e se há Fator R.\n\nA cereja é o agente de proposta executiva. Com um clique, ele gera uma proposta comercial personalizada (com nome da empresa, enquadramento e economia projetada) pronta para enviar ao cliente, com download em markdown. A decisão técnica central é a mesma que defendo em todo app financeiro: o LLM NUNCA inventa número. Ele recebe os valores já calculados como contexto e apenas redige a prosa ao redor - grounding que elimina alucinação de cifras. Reusa a mesma stack de IA (OpenAI) dos meus outros projetos, e cada cliente administra a própria chave (via .env, fora do Git e da imagem Docker).\n\nNos bastidores, o código segue camadas estritas (dados → serviços → cálculo → agente → UI → páginas): a camada de cálculo é pura (não importa Streamlit), com contratos de dados próprios, o que permite testar toda a regra tributária isoladamente. O app é dockerizado, personalizável por cliente (foto e nome no topo) e coberto por testes automatizados - inclusive um teste visual com Playwright que usei para validar a renderização dos gráficos.",
+    "impacto": "Transforma um material de apresentação estático numa ferramenta de venda consultiva: o lojista informa o CNPJ e vê na hora seu enquadramento no Simples e a economia projetada com o split; o vendedor gera uma proposta executiva personalizada em segundos. Demonstra arquitetura em camadas, integração com API pública, base de dados de domínio (1.206 CNAEs) e IA aplicada com grounding anti-alucinação.",
     "stack": [
       "Python",
       "Streamlit",
-      "SQLAlchemy",
-      "SQLite",
-      "Alembic",
-      "ECharts",
-      "Plotly",
-      "win32com (Outlook)",
-      "pytz"
+      "OpenAI (GPT)",
+      "ECharts (streamlit-echarts)",
+      "BrasilAPI",
+      "python-dotenv",
+      "Docker",
+      "Playwright",
+      "pytest"
     ],
     "metricas": {
-      "Etapas de projeto": "9 status rastreados",
-      "Tipos de projeto": "9 categorias",
-      "Habilidades catalogadas": "70+",
-      "Gráficos": "12+ tipos interativos",
-      "Automação": "Emails via Outlook"
+      "Simuladores": "3 regimes (Simples/Presumido/Real) + eficiência em adquirência",
+      "Base de domínio": "1.206 CNAEs → Anexo, alíquota e Fator R",
+      "Integração": "Consulta de CNPJ ao vivo na BrasilAPI",
+      "Agente de IA": "Proposta executiva via OpenAI · grounding (0 alucinação de cifras)",
+      "Arquitetura": "Camadas dados → serviços → cálculo (puro) → agente → UI",
+      "Qualidade": "14 testes · dockerizado · personalizável por cliente"
+    },
+    "imagem": "confrapag_-_split_de_recebiveis.png",
+    "github": null,
+    "demo": null,
+    "artigo": null,
+    "destaque": true
+  },
+  {
+    "titulo": "BDC 2.0 - App Full-Stack de Gestão e Análise de Time de Futebol (Streamlit + Postgres)",
+    "categoria": "Produto de Dados",
+    "descricao": "Evolução full-stack do meu painel de futebol: substitui o fluxo Google Forms → Planilha → Power BI por um único app Streamlit com banco PostgreSQL serverless (Neon). Reúne a coleta de dados (notas dos jogadores e detalhes dos gols) e o dashboard interativo (ECharts) em camadas bem definidas (páginas → serviços → repositório → models, SQLAlchemy 2.0). Inclui migração ETL do histórico 2021-2023 das planilhas, filtros dinâmicos e um módulo de Escalação que monta o XI ideal pela forma recente dos jogadores (7 formações × 7 critérios).",
+    "descricao_longa": "Este projeto é a evolução natural do meu primeiro BDC, feito em Power BI na faculdade. Aquele painel dependia de um Google Forms que caía numa planilha que alimentava o relatório - três ferramentas costuradas. Decidi reconstruir tudo como um produto de dados de verdade: um único aplicativo onde os diretores registram os jogos e as notas, e a comissão técnica analisa os resultados.\n\nAgora a coleta e o dashboard vivem no mesmo app (Streamlit), com os dados num banco PostgreSQL na nuvem (Neon) em vez de planilha. Modelei os dados em formato 'longo' (uma linha por nota e uma por gol), então adicionar um jogador novo não quebra o schema e as análises viram simples agregações. O código segue camadas bem separadas (páginas → serviços → repositório → banco), o mesmo padrão de engenharia que uso nos projetos profissionais.\n\nMigrei todo o histórico de 2021 a 2023 das planilhas para o banco com scripts de ETL - inferindo o tipo de cada jogo, deduplicando votos repetidos e reconstruindo o mando de campo (casa/fora). O dashboard tem quatro seções (Jogos, Avaliações, Gols e Escalação) com filtros dinâmicos por ano, mês, tipo de jogo e posição, e dezenas de indicadores: aproveitamento mensal, dispersão de notas por posição, artilharia, quem mais foi o melhor em campo e o saldo de gols de cada partida.\n\nA parte que mais gosto é a Escalação: o app monta o time ideal a partir da forma recente dos jogadores, com 7 formações e 7 critérios de seleção (média dos últimos 3 ou 10 jogos, histórica, ponderada por recência, em alta, mais regular ou mais presente), desenhando o XI num campo interativo - e dá para escolher quem está disponível antes de montar. Aqui fiz questão de uma decisão honesta de cientista de dados: resistir a 'jogar um modelo de ML' onde uma boa heurística resolve melhor - escalar por forma recente é ordenação, não previsão; ML só entraria se o objetivo virasse prever a nota do próximo jogo, e mesmo assim teria de bater o baseline. Por fim, todos os gráficos vêm da minha própria biblioteca (Baltazar), reforçando o reuso e a consistência entre projetos.",
+    "impacto": "Transforma três ferramentas costuradas (Forms + Planilha + Power BI) em um produto de dados único, com banco real e coleta integrada - e ainda agrega uma feature inédita de escalação automática por forma recente. Demonstra na prática arquitetura em camadas, modelagem de dados, ETL e reuso de biblioteca própria.",
+    "stack": [
+      "Python",
+      "Streamlit",
+      "PostgreSQL (Neon)",
+      "SQLAlchemy 2.0",
+      "psycopg v3",
+      "ECharts (streamlit-echarts)",
+      "pandas",
+      "ETL / Migração de dados",
+      "Baltazar (lib própria)"
+    ],
+    "metricas": {
+      "Evolução": "Google Forms + Planilha + Power BI → 1 app full-stack",
+      "Banco": "PostgreSQL serverless (Neon) · modelagem normalizada (formato longo)",
+      "Arquitetura": "Camadas páginas → serviços → repositório → models (SQLAlchemy 2.0)",
+      "ETL": "Migração 2021-2023 das planilhas → 73 jogos · ~2,7k avaliações · 169 gols",
+      "Dashboard": "4 seções · ~30 agregações · filtros por ano/mês/tipo/posição",
+      "Escalação": "XI ideal por forma recente · 7 formações × 7 critérios + campo interativo",
+      "Reuso": "Gráficos pela minha biblioteca Baltazar (fonte única)"
+    },
+    "imagem": "bdc_2.0_-_app_full-stack_de_ge.jpg",
+    "github": "https://github.com/Diogohenrique1334/bomd_copus",
+    "demo": "https://bomdcopus-04ayiekxjxhrvvmzgmyebwk.streamlit.app/",
+    "artigo": "https://www.linkedin.com/posts/diogooliveira1334_sem-poder-jogar-virei-t%C3%A9cnico-do-time-e-ugcPost-7476015362585608192--l4n/?utm_source=share&utm_medium=member_desktop&rcm=ACoAABxKtOoBYPXEGg0v1g4BGF6rH8DOyz14Kzk",
+    "destaque": true
+  },
+  {
+    "titulo": "Treinamento comercial gera vendas? - Impacto causal (projeto premiado)",
+    "categoria": "Machine Learning",
+    "descricao": "Análise causal premiada na Claro: o treinamento comercial impacta as vendas? Combina NLP (tema→produto), clusterização de lojas e diff-in-differences para isolar o efeito do treinamento do viés de seleção. Reconstruído de forma limpa e reprodutível sobre dados sintéticos.",
+    "descricao_longa": "Na Claro, recebi a missão de medir se o treinamento comercial gerava resultado real nas vendas - e o projeto foi premiado internamente por alcançar uma granularidade de informação que ninguém havia conseguido.\n\nO método encadeia quatro técnicas: (1) NLP para casar o tema do treinamento com o produto vendido (CountVectorizer + regressão logística sobre nomes fuzzy/abreviados); (2) clusterização das ~300 lojas em P/M/G por volume (KMeans + silhueta); (3) o desenho do experimento, comparando vendedores treinados e não-treinados na mesma loja, semana e ano; e (4) a estimativa de impacto.\n\nEsta é a reconstrução madura do projeto, sobre dados 100% sintéticos (os reais são confidenciais/LGPD), com o rigor que eu adicionaria hoje. O grande aprendizado está aqui: a comparação ingênua sugeria +42% de efeito - mas isso mistura o skill do vendedor com o treinamento (viés de seleção). Um diff-in-differences (Poisson GLM) revela que o efeito causal real é +12%, e um teste de Wilcoxon pareado (p < 0.001) com tamanho de efeito e intervalo de confiança substitui o antigo \"X% das lojas\". É a diferença entre um bom resultado e o método que o sustenta.",
+    "impacto": "Quantifica o retorno do treinamento comercial com rigor causal, separando efeito real (+12%) de viés de seleção (+42% aparente). Projeto premiado por granularidade inédita de informação.",
+    "stack": [
+      "Python",
+      "scikit-learn",
+      "statsmodels",
+      "pandas",
+      "NLP (CountVectorizer)",
+      "KMeans",
+      "Diff-in-Differences",
+      "Teste de Wilcoxon",
+      "Poisson GLM"
+    ],
+    "metricas": {
+      "Reconhecimento": "Premiado internamente na Claro",
+      "Escala": "~300 lojas · milhares de semana-loja",
+      "Método": "NLP + Clusterização + Diff-in-Differences",
+      "Rigor estatístico": "Wilcoxon pareado (p<0.001) + IC + tamanho de efeito",
+      "Achado-chave": "Ingênuo +42% → DiD +12% (corrige viés de seleção)"
+    },
+    "imagem": "treinamento_comercial_gera_ven.PNG",
+    "github": "https://github.com/Diogohenrique1334/treinadosVSvendas",
+    "demo": null,
+    "artigo": "https://www.linkedin.com/posts/diogooliveira1334_celebrando-conquistas-tive-a-honra-de-ugcPost-7282149315605598209-yIiq/",
+    "destaque": true
+  },
+  {
+    "titulo": "Diagnóstico - Plataforma Full-Stack de Gestão de Projetos de Dados (Async + PostgreSQL/Neon)",
+    "categoria": "Produto de Dados",
+    "descricao": "Plataforma full-stack para gerenciar um portfólio inteiro de projetos de Ciência de Dados: entrevista de diagnóstico estruturada, pipeline de 9 etapas com e-mails automáticos, gerador de propostas comerciais em PDF e um estimador de horas por similaridade. Backend 100% assíncrono (SQLAlchemy 2.0 + asyncpg) sobre PostgreSQL no Neon, com dashboard dark interativo em ECharts e acesso controlado por papel.",
+    "descricao_longa": "Gerenciar dezenas de projetos de análise de dados para clientes diferentes, cada um numa etapa, com equipes e objetivos distintos, é um desafio real. Este sistema resolve isso com uma plataforma própria, construída do zero e em evolução contínua.\n\nTudo começa por uma **entrevista de diagnóstico** estruturada em 16 perguntas, que guia o levantamento de requisitos (qual é o objetivo? como o sucesso será medido? o que atrapalha hoje?). A partir daí, cada projeto é acompanhado em até **9 etapas de pipeline** e, a cada mudança de status, os stakeholders recebem **e-mails automáticos** com o contexto da atualização (integração COM com o Outlook).\n\nSobre esse núcleo, duas camadas de produto: um **gerador de propostas comerciais** que monta PDFs profissionais em 3 modelos (ReportLab), e um **estimador de horas** que sugere o esforço de um novo projeto por similaridade com os já entregues (Jaccard de skills + vizinhos mais próximos, com fallback heurístico no cold start).\n\nO **dashboard** (tema dark, ECharts) mostra em tempo real o funil do pipeline, taxa de conclusão, cycle time médio, mapa de calor de habilidades por tipo de projeto e a atividade ao longo do tempo. O Dashboard é público; as páginas que expõem dados de clientes ou permitem escrita ficam atrás de **autenticação por senha**.\n\nPor baixo, a engenharia: backend **100% assíncrono** (SQLAlchemy 2.0 + asyncpg) sobre **PostgreSQL no Neon** (migrado de SQLite, com schema normalizado e Alembic), ponte async↔Streamlit via event loop dedicado, configuração por pydantic-settings e **containerização com Docker** para deploy no Streamlit Community Cloud. Os gráficos vêm da Baltazar, biblioteca pessoal reutilizada entre projetos.",
+    "impacto": "Centraliza o ciclo de vida inteiro de um portfólio de projetos de dados, do diagnóstico à proposta, da execução à entrega, eliminando planilhas dispersas e e-mails manuais. Hoje gerencia 60 projetos de 22 clientes com 77% de taxa de conclusão e cycle time médio de 12 dias, tudo rastreado e visualizado automaticamente.",
+    "stack": [
+      "Python",
+      "Streamlit",
+      "SQLAlchemy 2.0 (async)",
+      "asyncpg",
+      "PostgreSQL (Neon)",
+      "Alembic",
+      "pydantic-settings",
+      "ReportLab",
+      "ECharts",
+      "Plotly",
+      "Docker",
+      "win32com (Outlook)"
+    ],
+    "metricas": {
+      "Projetos gerenciados": "60 · 22 clientes",
+      "Taxa de conclusão": "77% · cycle time 12 dias",
+      "Arquitetura": "100% async (asyncpg) + PostgreSQL/Neon",
+      "Geração de propostas": "3 modelos em PDF (ReportLab)",
+      "Estimador de horas": "Similaridade KNN/Jaccard",
+      "Automação": "E-mails de status via Outlook"
     },
     "imagem": "diagnóstico_-_gestão_de_projet.PNG",
     "github": "https://github.com/Diogohenrique1334/diagnostico",
-    "demo": null,
-    "destaque": true
+    "demo": "https://diagnostico-ffykvvqgxppyfrn7cynasi.streamlit.app/",
+    "destaque": true,
+    "artigo": "https://www.linkedin.com/posts/diogooliveira1334_minha-hist%C3%B3ria-em-dados-todo-fim-de-ano-eu-ugcPost-7478093599583301632-yXEm/?utm_source=share&utm_medium=member_desktop&rcm=ACoAABxKtOoBYPXEGg0v1g4BGF6rH8DOyz14Kzk"
   },
   {
     "titulo": "Baltazar - Biblioteca Python de Data Science",
@@ -146,51 +245,62 @@
     "artigo": null
   },
   {
-    "titulo": "Biblioteca CX - Utilitários de Customer Experience",
+    "titulo": "Biblioteca CX - Pipelines de Voz do Cliente, NPS e Jornada (Telecom)",
     "categoria": "Engenharia de Dados",
-    "descricao": "Biblioteca Python interna que centraliza as transformações e análises recorrentes de Customer Experience que desenvolvo no ambiente profissional: tratamento de dados estruturados e não estruturados da jornada do cliente (voz do cliente, NPS, SAC, speech analytics, CRM, redes sociais), padronização de pipelines e funções reutilizáveis para os modelos e dashboards de CX da área.",
-    "descricao_longa": "No dia a dia da área de Dados CX eu repetia as mesmas transformações para preparar dados de experiência do cliente vindos de muitas fontes diferentes (Qualtrics, speech analytics, NPS, SAC, CRM, redes sociais). Em vez de reescrever esse código a cada nova análise, empacotei tudo em uma biblioteca interna - o mesmo conceito da minha Baltazar, mas voltada ao domínio de telecom e Customer Experience.\n\nIsso padroniza como a área trata e integra esses dados, acelera a entrega de novas análises e garante consistência entre os relatórios e modelos de experiência do cliente.",
-    "impacto": "Padroniza e acelera as análises de Customer Experience, eliminando retrabalho na preparação de dados de múltiplas fontes (NPS, SAC, speech, CRM) e garantindo consistência entre relatórios e modelos da área.",
+    "descricao": "Biblioteca interna de Customer Experience que centraliza, em camadas bem definidas (fontes → dimensões → fatos → relatório), os pipelines recorrentes da área de Dados CX de uma operação de telecom: ingestão e tratamento de Speech Analytics (transcrição de ligações), cálculo das métricas de pesquisa (NPS, CSAT, CES, resolutividade), análise de portabilidade e churn, e geração automatizada de relatórios. Histórico consolidado de forma incremental em Parquet, séries temporais com decomposição sazonal, ranking de variação mês a mês por jornada do cliente e envio automático de relatórios HTML por e-mail.",
+    "descricao_longa": "A área de Dados de Customer Experience recebe informação de muitas fontes diferentes e desconexas: ligações transcritas por speech analytics, pesquisas de satisfação (NPS, CSAT, CES), atendimentos de SAC, dados de portabilidade e de churn. Montar cada análise do zero a partir desses arquivos brutos é lento, repetitivo e propenso a erro.\n\nEsta biblioteca empacota todo esse trabalho - a mesma filosofia da minha Baltazar, mas voltada ao domínio de telecom e CX. Na prática ela: transforma os exports bagunçados de speech (detectando o cabeçalho automaticamente e reorganizando os dados) em uma série temporal por categoria de ligação; identifica, mês a mês e por jornada do cliente (uso, compra, pagamento, cancelamento, alteração e experiência), quais motivos de contato mais cresceram; calcula os indicadores de satisfação (NPS, CSAT, CES, resolutividade); acompanha a portabilidade (quantos dias úteis até a linha ativar e quantos casos reabriram após um conflito); e mede o churn a partir das portabilidades de saída.\n\nA estrutura segue camadas claras (fontes brutas → dimensões → tabelas-fato), guarda o histórico consolidado em Parquet de forma incremental e, no fim do fluxo, monta um relatório HTML formatado e o envia automaticamente por e-mail aos gestores - fechando o ciclo do dado cru à decisão sem intervenção manual.",
+    "impacto": "Padroniza e acelera as análises de Customer Experience da área, transformando dados crus de múltiplas fontes (voz do cliente, NPS, SAC, portabilidade, churn) em indicadores acionáveis e relatórios automatizados por e-mail - eliminando retrabalho e dando consistência às entregas recorrentes.",
     "stack": [
       "Python",
       "pandas",
       "numpy",
-      "SQL",
-      "scikit-learn"
+      "statsmodels",
+      "scikit-learn",
+      "matplotlib",
+      "seaborn",
+      "Parquet (PyArrow)",
+      "win32com (Outlook)"
     ],
     "metricas": {
-      "Tipo": "Biblioteca interna (ambiente profissional)",
-      "Domínio": "Customer Experience / Telecom",
-      "Fontes integradas": "NPS, SAC, speech, CRM, redes sociais",
-      "Conceito": "Mesma filosofia da Baltazar, aplicada ao trabalho"
+      "Fontes integradas": "Speech Analytics, Qualtrics (NPS/CSAT/CES), SAC, Portabilidade, Churn",
+      "Jornadas cobertas": "Uso, Compra, Pagamento, Cancelamento, Alteração, Experiência",
+      "Análises": "Séries temporais (decomposição sazonal) + ranking de variação MoM por jornada",
+      "Métricas de CX": "NPS, CSAT, CES, resolutividade, tNPS",
+      "Automação": "Relatório HTML das jornadas enviado por e-mail (Outlook)",
+      "Arquitetura": "Camadas fontes → dimensões → fatos · histórico incremental em Parquet"
     },
-    "imagem": null,
+    "imagem": "biblioteca_cx_-_arquitetura.png",
     "github": null,
     "demo": null,
-    "destaque": false
+    "destaque": true
   },
   {
-    "titulo": "Biblioteca de Inteligência Operacional",
+    "titulo": "Biblioteca de Inteligência Operacional - Treinamento Comercial e Canais (Telecom)",
     "categoria": "Engenharia de Dados",
-    "descricao": "Biblioteca Python interna que reúne as transformações e rotinas analíticas recorrentes dos projetos de Inteligência Operacional: preparação de dados operacionais, cálculo de indicadores de desempenho, automação de relatórios e funções reutilizáveis que padronizam as entregas da área.",
-    "descricao_longa": "Os projetos de Inteligência Operacional exigem repetidamente as mesmas etapas: limpar e preparar dados operacionais, calcular indicadores de desempenho e gerar relatórios recorrentes. Para não refazer esse trabalho a cada projeto, organizei essas rotinas em uma biblioteca interna reutilizável.\n\nÉ a mesma filosofia da Baltazar aplicada ao ambiente profissional: empacotar o que se repete para ganhar velocidade, consistência e manutenção mais simples - fundamento que sustentou projetos premiados na área.",
-    "impacto": "Acelera e padroniza as entregas de Inteligência Operacional, reduzindo retrabalho na preparação de dados e na geração de indicadores e relatórios recorrentes.",
+    "descricao": "Biblioteca interna que sustenta a inteligência de dados do treinamento comercial de uma força de vendas multicanal (lojas próprias, agentes autorizados, PAP, varejo e televendas): consolida em um histórico único as bases de pessoas treinadas, turmas e vendedores ativos por canal; roda um 'radar' que valida automaticamente os lançamentos de turmas contra regras de negócio e notifica os responsáveis por e-mail; automatiza a coleta das bases via web scraping; e inclui um de-para de NLP que liga o tema treinado ao produto vendido. É a fundação de dados que viabilizou o projeto premiado de impacto causal de treinamento em vendas.",
+    "descricao_longa": "Acompanhar o treinamento comercial de uma força de vendas espalhada por vários canais - lojas próprias, agentes autorizados, PAP, varejo e televendas - gera dados dispersos e cheios de inconsistências de lançamento. Cruzar quem foi treinado, em qual tema, e quem de fato está ativo na operação era um trabalho manual, lento e propenso a erro.\n\nEsta biblioteca organiza tudo isso. Ela consolida três bases que viviam separadas (pessoas treinadas, turmas de treinamento e vendedores ativos por canal) em um histórico único e identifica o último treinamento de cada pessoa por tema. Em paralelo, um 'radar' valida automaticamente os lançamentos de turmas contra regras de negócio - datas coerentes, presença mínima, anexos obrigatórios, instrutor compatível com a regional - e dispara e-mails para os responsáveis corrigirem. A coleta das bases na plataforma de treinamento é automatizada por web scraping, eliminando o download manual.\n\nMais do que padronizar a operação, ela foi a fundação de dados do meu projeto premiado 'Treinamento comercial gera vendas?': foram essas tabelas consolidadas (treinados x ativos x produto, com o de-para de tema para produto) que permitiram a análise causal medir o efeito real do treinamento sobre as vendas. É a mesma filosofia da minha Baltazar, aplicada ao domínio da operação comercial.",
+    "impacto": "Padroniza e automatiza o acompanhamento do treinamento comercial em múltiplos canais - da coleta das bases (web scraping) à correção de inconsistências (radar + e-mail automático) - e entrega as tabelas consolidadas que serviram de base para o projeto premiado de impacto causal de treinamento em vendas.",
     "stack": [
       "Python",
       "pandas",
       "numpy",
-      "SQL"
+      "Selenium",
+      "regex",
+      "Parquet (PyArrow)",
+      "win32com (Outlook)"
     ],
     "metricas": {
-      "Tipo": "Biblioteca interna (ambiente profissional)",
-      "Domínio": "Inteligência Operacional",
-      "Foco": "Indicadores, automação de relatórios, preparação de dados",
-      "Conceito": "Mesma filosofia da Baltazar, aplicada ao trabalho"
+      "Canais integrados": "Lojas próprias, Agentes Autorizados, PAP, Varejo, Televendas",
+      "Consolidação": "Treinados × Turmas × Ativos por canal (histórico em Parquet)",
+      "Radar de qualidade": "Valida datas, presença, anexos e regras de lançamento das turmas",
+      "Automação": "Coleta via web scraping (Selenium) + notificação por e-mail (Outlook)",
+      "NLP de domínio": "De-para tema treinado → produto vendido (centenas de mapeamentos)",
+      "Base de": "projeto premiado 'Treinamento comercial gera vendas?'"
     },
-    "imagem": null,
+    "imagem": "biblioteca_io_-_arquitetura.png",
     "github": null,
     "demo": null,
-    "destaque": false
+    "destaque": true
   },
   {
     "titulo": "BDC - Análise de Desempenho de Time de Futebol (Power BI)",
@@ -215,7 +325,7 @@
     },
     "imagem": "bdc_-_gestão_de_jogos_time_de_.PNG",
     "github": null,
-    "demo": null,
+    "demo": "https://app.powerbi.com/view?r=eyJrIjoiZTZmMTcxODgtMjA2ZS00NGU3LWI3N2ItMmU3NWRhODliY2Q1IiwidCI6Ijg1Nzg3OWFiLWQxYjUtNGZiMi04OTFmLTYxYmUzOWUwMDU1NiJ9",
     "artigo": "https://www.linkedin.com/posts/diogooliveira1334_voc%C3%AA-j%C3%A1-imaginou-como-os-dados-podem-ajudar-share-7149423344956735488-DC2i/",
     "destaque": true
   },
@@ -273,35 +383,5 @@
     "demo": null,
     "destaque": true,
     "artigo": null
-  },
-  {
-    "titulo": "Treinamento comercial gera vendas? - Impacto causal (projeto premiado)",
-    "categoria": "Machine Learning",
-    "descricao": "Análise causal premiada na Claro: o treinamento comercial impacta as vendas? Combina NLP (tema→produto), clusterização de lojas e diff-in-differences para isolar o efeito do treinamento do viés de seleção. Reconstruído de forma limpa e reprodutível sobre dados sintéticos.",
-    "descricao_longa": "Na Claro, recebi a missão de medir se o treinamento comercial gerava resultado real nas vendas - e o projeto foi premiado internamente por alcançar uma granularidade de informação que ninguém havia conseguido.\n\nO método encadeia quatro técnicas: (1) NLP para casar o tema do treinamento com o produto vendido (CountVectorizer + regressão logística sobre nomes fuzzy/abreviados); (2) clusterização das ~300 lojas em P/M/G por volume (KMeans + silhueta); (3) o desenho do experimento, comparando vendedores treinados e não-treinados na mesma loja, semana e ano; e (4) a estimativa de impacto.\n\nEsta é a reconstrução madura do projeto, sobre dados 100% sintéticos (os reais são confidenciais/LGPD), com o rigor que eu adicionaria hoje. O grande aprendizado está aqui: a comparação ingênua sugeria +42% de efeito - mas isso mistura o skill do vendedor com o treinamento (viés de seleção). Um diff-in-differences (Poisson GLM) revela que o efeito causal real é +12%, e um teste de Wilcoxon pareado (p < 0.001) com tamanho de efeito e intervalo de confiança substitui o antigo \"X% das lojas\". É a diferença entre um bom resultado e o método que o sustenta.",
-    "impacto": "Quantifica o retorno do treinamento comercial com rigor causal, separando efeito real (+12%) de viés de seleção (+42% aparente). Projeto premiado por granularidade inédita de informação.",
-    "stack": [
-      "Python",
-      "scikit-learn",
-      "statsmodels",
-      "pandas",
-      "NLP (CountVectorizer)",
-      "KMeans",
-      "Diff-in-Differences",
-      "Teste de Wilcoxon",
-      "Poisson GLM"
-    ],
-    "metricas": {
-      "Reconhecimento": "Premiado internamente na Claro",
-      "Escala": "~300 lojas · milhares de semana-loja",
-      "Método": "NLP + Clusterização + Diff-in-Differences",
-      "Rigor estatístico": "Wilcoxon pareado (p<0.001) + IC + tamanho de efeito",
-      "Achado-chave": "Ingênuo +42% → DiD +12% (corrige viés de seleção)"
-    },
-    "imagem": "treinamento_comercial_gera_ven.PNG",
-    "github": "https://github.com/Diogohenrique1334/treinadosVSvendas",
-    "demo": null,
-    "artigo": "https://www.linkedin.com/posts/diogooliveira1334_celebrando-conquistas-tive-a-honra-de-ugcPost-7282149315605598209-yIiq/",
-    "destaque": true
   }
 ]
