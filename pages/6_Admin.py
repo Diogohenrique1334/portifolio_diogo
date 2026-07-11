@@ -15,10 +15,16 @@ from utils.admin_helpers import (
     salvar_experiencias,
     carregar_artigos,
     salvar_artigos,
+    carregar_livros,
+    salvar_livros,
     validar_projeto,
     validar_experiencia,
     validar_artigo,
+    validar_livro,
 )
+
+# Status possíveis de uma leitura
+STATUS_LIVRO = ["Lido", "Lendo", "Quero ler"]
 
 # Categorias disponíveis para os projetos (reutilizadas nos selects)
 CATEGORIAS_PROJETO = [
@@ -31,7 +37,7 @@ CATEGORIAS_PROJETO = [
 ]
 
 st.set_page_config(
-    page_title="Admin — Portfólio",
+    page_title="Admin - Portfólio",
     page_icon="⚙️",
     layout="wide",
 )
@@ -62,7 +68,7 @@ if "admin_autenticado" not in st.session_state:
 
 if not st.session_state.admin_autenticado:
     render_sidebar()
-    st.markdown('<p class="sec-heading">🔐 Admin — Acesso restrito</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sec-heading">🔐 Admin - Acesso restrito</p>', unsafe_allow_html=True)
 
     senha = st.text_input("Senha do admin", type="password")
     if st.button("Entrar"):
@@ -89,8 +95,8 @@ with col_logout:
 st.divider()
 
 # Abas
-tab_projetos, tab_experiencia, tab_artigos, tab_perfil, tab_assistente = st.tabs(
-    ["📦 Projetos", "💼 Experiência", "✍️ Artigos", "👤 Perfil", "🤖 Assistente"]
+tab_projetos, tab_experiencia, tab_artigos, tab_livros, tab_perfil, tab_assistente = st.tabs(
+    ["📦 Projetos", "💼 Experiência", "✍️ Artigos", "📚 Leituras", "👤 Perfil", "🤖 Assistente"]
 )
 
 # ================================================================
@@ -178,7 +184,7 @@ with tab_projetos:
                     if arquivo_foto:
                         # Gera nome do arquivo: titulo_projeto.extensao
                         ext = arquivo_foto.name.split(".")[-1]
-                        nome_foto = f"{novo_titulo.lower().replace(' ', '_').replace('—', '')[:30]}.{ext}"
+                        nome_foto = f"{novo_titulo.lower().replace(' ', '_').replace('-', '')[:30]}.{ext}"
                         foto_path = assets_dir / nome_foto
                         foto_path.write_bytes(arquivo_foto.getbuffer())
 
@@ -238,7 +244,7 @@ with tab_projetos:
             nome_foto = None
             if arquivo_foto:
                 ext = arquivo_foto.name.split(".")[-1]
-                nome_foto = f"{novo_titulo.lower().replace(' ', '_').replace('—', '')[:30]}.{ext}"
+                nome_foto = f"{novo_titulo.lower().replace(' ', '_').replace('-', '')[:30]}.{ext}"
                 foto_path = assets_dir / nome_foto
                 foto_path.write_bytes(arquivo_foto.getbuffer())
 
@@ -274,7 +280,7 @@ with tab_experiencia:
 
     st.write(f"**Experiências: {len(experiencias)}**")
     for i, exp in enumerate(experiencias):
-        with st.expander(f"💼 {exp['cargo']} — {exp['empresa']}", expanded=False):
+        with st.expander(f"💼 {exp['cargo']} - {exp['empresa']}", expanded=False):
             novo_periodo = st.text_input(
                 "Período", exp.get("periodo", ""), key=f"exp_periodo_{i}"
             )
@@ -435,6 +441,134 @@ with tab_artigos:
                 st.rerun()
             else:
                 st.error("❌ Preencha pelo menos título e URL")
+
+# ================================================================
+# ABA: LEITURAS
+# ================================================================
+def _int_ou_none(valor: str):
+    """Converte texto em int; retorna None se vazio/ inválido."""
+    valor = (valor or "").strip()
+    return int(valor) if valor.isdigit() else None
+
+
+with tab_livros:
+    st.markdown("### Gerenciar Leituras & Acervo")
+    livros = carregar_livros()
+
+    st.write(f"**Livros: {len(livros)}**")
+    for i, liv in enumerate(livros):
+        with st.expander(f"📚 {liv.get('titulo', 'Sem título')}", expanded=False):
+            novo_titulo = st.text_input("Título", liv.get("titulo", ""), key=f"liv_titulo_{i}")
+            novo_autor = st.text_input("Autor(es)", liv.get("autor", ""), key=f"liv_autor_{i}")
+            col_cat, col_status = st.columns(2)
+            with col_cat:
+                nova_cat = st.text_input(
+                    "Categoria", liv.get("categoria", ""), key=f"liv_cat_{i}"
+                )
+            with col_status:
+                idx_status = (
+                    STATUS_LIVRO.index(liv["status"])
+                    if liv.get("status") in STATUS_LIVRO
+                    else 0
+                )
+                novo_status = st.selectbox(
+                    "Status", STATUS_LIVRO, index=idx_status, key=f"liv_status_{i}"
+                )
+            col_nota, col_ano = st.columns(2)
+            with col_nota:
+                nova_nota = st.number_input(
+                    "Nota (0 = sem nota)",
+                    min_value=0,
+                    max_value=5,
+                    value=int(liv.get("nota") or 0),
+                    step=1,
+                    key=f"liv_nota_{i}",
+                )
+            with col_ano:
+                novo_ano = st.text_input(
+                    "Ano de leitura", str(liv.get("ano_leitura") or ""), key=f"liv_ano_{i}"
+                )
+            novo_aprendizado = st.text_area(
+                "O que aprendi (1 linha)", liv.get("aprendizado", ""), key=f"liv_aprend_{i}"
+            )
+            novo_proj = st.text_input(
+                "Projeto relacionado (opcional)",
+                liv.get("projeto_relacionado", "") or "",
+                key=f"liv_proj_{i}",
+            )
+            nova_capa = st.text_input(
+                "Arquivo da capa em assets/livros/ (opcional)",
+                liv.get("capa", "") or "",
+                key=f"liv_capa_{i}",
+            )
+
+            col_save, col_del = st.columns(2)
+            with col_save:
+                if st.button("💾 Salvar", key=f"save_liv_{i}"):
+                    livros[i].update(
+                        {
+                            "titulo": novo_titulo,
+                            "autor": novo_autor,
+                            "categoria": nova_cat,
+                            "status": novo_status,
+                            "nota": int(nova_nota) or None,
+                            "aprendizado": novo_aprendizado,
+                            "projeto_relacionado": novo_proj or None,
+                            "capa": nova_capa or "",
+                            "ano_leitura": _int_ou_none(novo_ano),
+                        }
+                    )
+                    salvar_livros(livros)
+                    st.success("✅ Livro atualizado!")
+                    st.rerun()
+
+            with col_del:
+                if st.button("🗑️ Deletar", key=f"del_liv_{i}"):
+                    livros.pop(i)
+                    salvar_livros(livros)
+                    st.success("✅ Livro removido!")
+                    st.rerun()
+
+    # Adicionar livro
+    st.markdown("### ➕ Novo Livro")
+    with st.form("novo_livro"):
+        novo_titulo = st.text_input("Título")
+        novo_autor = st.text_input("Autor(es)")
+        col_cat, col_status = st.columns(2)
+        with col_cat:
+            nova_cat = st.text_input("Categoria (ex: Machine Learning)")
+        with col_status:
+            novo_status = st.selectbox("Status", STATUS_LIVRO)
+        col_nota, col_ano = st.columns(2)
+        with col_nota:
+            nova_nota = st.number_input(
+                "Nota (0 = sem nota)", min_value=0, max_value=5, value=0, step=1
+            )
+        with col_ano:
+            novo_ano = st.text_input("Ano de leitura")
+        novo_aprendizado = st.text_area("O que aprendi (1 linha)")
+        novo_proj = st.text_input("Projeto relacionado (opcional)")
+        nova_capa = st.text_input("Arquivo da capa em assets/livros/ (opcional)")
+
+        if st.form_submit_button("➕ Adicionar Livro"):
+            novo_livro = {
+                "titulo": novo_titulo,
+                "autor": novo_autor,
+                "categoria": nova_cat,
+                "status": novo_status,
+                "nota": int(nova_nota) or None,
+                "aprendizado": novo_aprendizado,
+                "projeto_relacionado": novo_proj or None,
+                "capa": nova_capa or "",
+                "ano_leitura": _int_ou_none(novo_ano),
+            }
+            if validar_livro(novo_livro):
+                livros.append(novo_livro)
+                salvar_livros(livros)
+                st.success("✅ Livro criado!")
+                st.rerun()
+            else:
+                st.error("❌ Preencha título, autor, categoria e status")
 
 # ================================================================
 # ABA: PERFIL

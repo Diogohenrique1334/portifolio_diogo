@@ -1,7 +1,7 @@
 """Constrói o corpus textual da trajetória a partir dos JSONs em ``data/``.
 
-Cada item relevante (perfil, projeto, experiência, formação, certificações e
-artigo) vira um :class:`Documento` com texto legível e metadados — a unidade que
+Cada item relevante (perfil, projeto, experiência, formação, certificações,
+artigo e livro) vira um :class:`Documento` com texto legível e metadados — a unidade que
 será embeddada e indexada. O corpus é pequeno por natureza; o RAG aqui é uma
 demonstração da técnica (o conteúdo caberia inteiro em contexto).
 """
@@ -20,7 +20,7 @@ class Documento:
     """Um trecho do corpus pronto para embedding."""
 
     id: str
-    tipo: str  # perfil | projeto | experiencia | formacao | certificacoes | artigo
+    tipo: str  # perfil | projeto | experiencia | formacao | certificacoes | artigo | livro
     titulo: str
     texto: str
 
@@ -125,6 +125,23 @@ def _doc_artigo(art: dict, indice: int) -> Documento:
     return Documento(id=f"artigo-{indice}", tipo="artigo", titulo=titulo, texto=texto)
 
 
+def _doc_livro(liv: dict, indice: int) -> Documento:
+    titulo = liv.get("titulo", f"Livro {indice}")
+    texto = "Livro / leitura técnica.\n"
+    for rotulo, chave in [
+        ("Título", "titulo"),
+        ("Autor", "autor"),
+        ("Categoria", "categoria"),
+        ("Status de leitura", "status"),
+        ("Nota (0-5)", "nota"),
+        ("Ano de leitura", "ano_leitura"),
+        ("O que aprendi", "aprendizado"),
+        ("Projeto relacionado", "projeto_relacionado"),
+    ]:
+        texto += _linha(rotulo, liv.get(chave))
+    return Documento(id=f"livro-{indice}", tipo="livro", titulo=titulo, texto=texto)
+
+
 def construir_corpus() -> list[Documento]:
     """Lê todos os JSONs de ``data/`` e devolve a lista de documentos do corpus."""
     docs: list[Documento] = []
@@ -152,5 +169,11 @@ def construir_corpus() -> list[Documento]:
         artigos = artigos.get("artigos", [])
     for i, art in enumerate(artigos, start=1):
         docs.append(_doc_artigo(art, i))
+
+    livros = _ler_json("livros.json") or []
+    if isinstance(livros, dict):
+        livros = livros.get("livros", [])
+    for i, liv in enumerate(livros, start=1):
+        docs.append(_doc_livro(liv, i))
 
     return docs

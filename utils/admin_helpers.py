@@ -98,9 +98,36 @@ def salvar_artigos(artigos: list[dict]):
     )
 
 
+def carregar_livros() -> list[dict]:
+    """Carrega lista de livros/leituras do JSON."""
+    try:
+        path = _get_data_file("livros.json")
+        if not path.exists():
+            return []
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception as e:
+        raise ValueError(f"Erro ao carregar livros: {e}")
+
+
+def salvar_livros(livros: list[dict]):
+    """Salva lista de livros no JSON com backup automático."""
+    path = _get_data_file("livros.json")
+    _fazer_backup(path)
+    path.write_text(
+        json.dumps(livros, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+
 def validar_artigo(a: dict) -> bool:
     """Valida estrutura mínima de um artigo."""
     return bool(a.get("titulo") and a.get("url"))
+
+
+def validar_livro(livro: dict) -> bool:
+    """Valida estrutura mínima de um livro/leitura."""
+    campos_obrigatorios = ["titulo", "autor", "categoria", "status"]
+    return all(livro.get(campo) for campo in campos_obrigatorios)
 
 
 def validar_projeto(p: dict) -> bool:

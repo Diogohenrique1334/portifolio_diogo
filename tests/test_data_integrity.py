@@ -12,10 +12,12 @@ from utils.admin_helpers import (
     carregar_experiencias,
     carregar_perfil,
     carregar_artigos,
+    carregar_livros,
     validar_projeto,
     validar_experiencia,
     validar_formacao,
     validar_artigo,
+    validar_livro,
 )
 
 # Campos mínimos que o cabeçalho/sidebar do portfólio sempre lê.
@@ -57,3 +59,8 @@ def test_perfil_tem_campos_essenciais():
 @pytest.mark.parametrize("artigo", carregar_artigos(), ids=lambda a: a.get("titulo", "?"))
 def test_cada_artigo_tem_schema_minimo(artigo):
     assert validar_artigo(artigo), f"artigo inválido: {artigo.get('titulo')}"
+
+
+@pytest.mark.parametrize("livro", carregar_livros(), ids=lambda l: l.get("titulo", "?"))
+def test_cada_livro_tem_schema_minimo(livro):
+    assert validar_livro(livro), f"livro inválido: {livro.get('titulo')}"

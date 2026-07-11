@@ -1,0 +1,112 @@
+[
+  {
+    "titulo": "Projetando Sistemas de Machine Learning",
+    "autor": "Chip Huyen",
+    "categoria": "Engenharia de software",
+    "status": "Lido",
+    "nota": 4,
+    "aprendizado": "",
+    "projeto_relacionado": null,
+    "capa": "projetando_sistemas.jpeg",
+    "ano_leitura": 2026
+  },
+  {
+    "titulo": "Engenharia de Software para Cientistas de Dados",
+    "autor": "Catherine Nelson",
+    "categoria": "Engenharia de software",
+    "status": "Lido",
+    "nota": 5,
+    "aprendizado": "",
+    "projeto_relacionado": null,
+    "capa": "software_negocios.jpeg",
+    "ano_leitura": 2025
+  },
+  {
+    "titulo": "Data Science para Negócios",
+    "autor": "Foster Provost, Tom Fawcett",
+    "categoria": "Negócios",
+    "status": "Lendo",
+    "nota": 3,
+    "aprendizado": "",
+    "projeto_relacionado": null,
+    "capa": "ds_negocios.jpeg",
+    "ano_leitura": 2026
+  },
+  {
+    "titulo": "Mãos à Obra: Aprendizado de Máquina com Scikit-Learn, Keras & TensorFlow",
+    "autor": "Aurélien Géron",
+    "categoria": "Estatística",
+    "status": "Lendo",
+    "nota": 5,
+    "aprendizado": "",
+    "projeto_relacionado": null,
+    "capa": "maos_a_obre.jpeg",
+    "ano_leitura": 2026
+  },
+  {
+    "titulo": "Web Scraping com Python",
+    "autor": "Ryan Mitchell",
+    "categoria": "Web Scraping",
+    "status": "Lido",
+    "nota": 3,
+    "aprendizado": "",
+    "projeto_relacionado": null,
+    "capa": "Web.jpeg",
+    "ano_leitura": 2023
+  },
+  {
+    "titulo": "Análise Prática de Séries Temporais",
+    "autor": "Alleen Nielsen",
+    "categoria": "Séries temporais",
+    "status": "Lendo",
+    "nota": 3,
+    "aprendizado": "",
+    "projeto_relacionado": null,
+    "capa": "Series_temporais.jpeg",
+    "ano_leitura": 2024
+  },
+  {
+    "titulo": "Python para Análise de Dados",
+    "autor": "Wes McKinney",
+    "categoria": "Python",
+    "status": "Lido",
+    "nota": 4,
+    "aprendizado": "",
+    "projeto_relacionado": null,
+    "capa": "python.jpeg",
+    "ano_leitura": 2023
+  },
+  {
+    "titulo": "Estatística Prática",
+    "autor": "Peter Bruce, Andrew Bruce",
+    "categoria": "Estatística",
+    "status": "Lido",
+    "nota": 3,
+    "aprendizado": "",
+    "projeto_relacionado": null,
+    "capa": "estatistica_pratica.jpeg",
+    "ano_leitura": 2024
+  },
+  {
+    "titulo": "Python extreme",
+    "autor": "Diego Rodrigues",
+    "categoria": "Estatística",
+    "status": "Lendo",
+    "nota": 5,
+    "aprendizado": "",
+    "projeto_relacionado": null,
+    "capa": "extreme.jpeg",
+    "ano_leitura": 2026
+  },
+  {
+    "titulo": "Experiência do Cliente na Teoria e Muita Prática ",
+    "autor": "35 especialistas de experiência do cliente",
+    "categoria": "Negócios",
+    "status": "Lendo",
+    "nota": 3,
+    "aprendizado": "",
+    "projeto_relacionado": null,
+    "capa": "cx.jpeg",
+    "ano_leitura": 2025
+  }
+]

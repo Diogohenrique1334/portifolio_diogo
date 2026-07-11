@@ -47,7 +47,7 @@ st.markdown(
         <div class="hero-social">
             <a href="https://www.linkedin.com/in/diogooliveira1334/" target="_blank">💼 LinkedIn</a>
             <a href="https://github.com/Diogohenrique1334" target="_blank">🐙 GitHub</a>
-            <a href="https://www.datascienceportfol.io/diogohenrique1334" target="_blank">🌐 Portfólio</a>
+            <a href="https://portifoliodiogo-46c9yfkf8zuf8yeyfr2wqq.streamlit.app/" target="_blank">🌐 Portfólio</a>
             <a href="mailto:diogohenrique1334@gmail.com">✉ Email</a>
         </div>
     </div>
